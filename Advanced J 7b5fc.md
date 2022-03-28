@@ -726,7 +726,7 @@ Just like you can restrict the functionality of properties it is also possible t
 By default, Objects are extensible. This means it is possible to add new properties to them.  `Object.preventExtensions` prevents this by making your Objects non-extensible*.* This will only prevent *adding* new properties, and not deleting/changing existing properties.
 
 ```jsx
-∑const obj = { a: "A", b: "B" }
+const obj = { a: "A", b: "B" }
 Object.preventExtensions(obj)
 
 obj.c = "C" // Failure
@@ -773,10 +773,8 @@ obj.c = "C" // Failure
 console.log(obj) // { a: "A", b: "B" }
 ```
 
-<mark>
-💡 You can check if an Object is frozen with `Object.isFrozen`
-
-</mark>
+> 💡 You can check if an Object is frozen with `Object.isFrozen`
+>
 
 > Warning: It’s not possible to undo any of the above restrictions. Once applied, your Object will remain restricted for its entire lifetime. It is, however, still possible to copy its properties into a new non-restricted Object.
 > 
