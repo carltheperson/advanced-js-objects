@@ -773,10 +773,10 @@ obj.c = "C" // Failure
 console.log(obj) // { a: "A", b: "B" }
 ```
 
-<aside>
+<mark>
 💡 You can check if an Object is frozen with `Object.isFrozen`
 
-</aside>
+</mark>
 
 > Warning: It’s not possible to undo any of the above restrictions. Once applied, your Object will remain restricted for its entire lifetime. It is, however, still possible to copy its properties into a new non-restricted Object.
 > 
