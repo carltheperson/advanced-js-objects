@@ -42,7 +42,6 @@ console.log(obj["100"]) // b
 >```
 >
 
-
 ### Symbol property keys
 
 As mentioned before, Symbols are also valid Object keys. This also means they don’t get converted to strings when used as property keys. 
@@ -107,12 +106,13 @@ Primitives and Objects behave differently when assigned to variables or passed t
 ```js
 const value1 = 10
 const value2 = { isObj: true }
-// Have a graph after this code. Display the memory. 3 memory slots
 ```
+
+Below is an illustration of the above code. It shows `value1` directly storing `10` and `value2` storing a reference (`0x02`) to the `{isObj:true}` object.
 
 ![Memory addresses 1](../images/memory-1.png)
 
-When copying primitive values into other variables, a simple copy is made of the value. When copying Objects, you instead copy the reference. This means multiple variables can reference the same Object value. 
+When copying primitive values into other variables, a simple copy is made of the value. When copying objects, you instead copy the reference. This means multiple variables can reference the same object value. 
 
 ```js
 let obj1 = { changed: false }
@@ -124,11 +124,11 @@ console.log(obj1) // { changed: true }
 console.log(obj2) // { changed: true }
 ```
 
+Above, we create an Object with a reference assigned to the variable `obj1`. We then copy the reference into the variable `obj2`. When then change a property on the object that `obj2` references. This is of course the same Object that `obj1` references. They effectively share an object.
+
 ![Memory addresses 2](../images/memory-2.png)
 
-Above, we create an Object with a reference assigned to the variable `obj1`. We then copy the reference into the variable `obj2`. When then change a property on the object that `obj2` references. This is of course the same Object that `obj1` references. They effectively share an Object.
-
-Note, there is a difference between changing an Object and assigning a brand new Object to a variable. Below, we re-assign the variable `obj2` with a new object literal. The result is that the variables reference two separate Objects.
+Note, there is a difference between changing an object and assigning a brand new object to a variable. Below, we re-assign the variable `obj2` to a new object literal. The result is that the variables reference two separate objects.
 
 ```js
 let obj1 = { changed: false }
@@ -152,8 +152,7 @@ const myValue = 10
 func(myValue)
 ```
 
-How many assignments are made here? There are actually two. The first one is `myValue = 10` and the second one is `param = myValue`. The value of `myValue` is not passed in directly. Instead, a copy is made which is assigned to `param`.
-This means we can safely assume that functions won’t modify our primitive variables.
+Here we have a function called `func` and a variable called `myValue` which holds a primitive value (`10`). We call the function and pass in `myValue` as a parameter. Interestingly, the value of `myValue` is not passed in directly. Instead, a copy is made which is assigned to `param`. This means we can safely assume that functions won’t modify our primitive variables.
 
 ```js
 function iCantChangeYourPrimitive(val) {
@@ -165,7 +164,7 @@ iCantChangeYourPrimitive(myVal)
 console.log(myVal) // 100
 ```
 
-The same safety cannot be assumed for objects passed to functions. We have to remember that we are assigning a **reference** to the parameter. This means that the function doesn’t get a copy of the Object, it gets a copy of the reference.
+The same safety cannot be assumed for objects passed to functions. We have to remember that we are assigning a *reference* to the parameter. This means that the function doesn’t get a copy of the object, it gets a copy of the reference.
 
 ```js
 function iCanChangeYourObject(obj) {
@@ -177,9 +176,9 @@ iCanChangeYourObject(myObj)
 console.log(myObj) // { changed: true }
 ```
 
-**Object properties**
+#### Object properties
 
-What happens to objects when you assign them to other Objects as properties? The answer is that the Object *reference* becomes the property value. This is the same functionality we have with variable assignment.
+What happens to objects when you assign them to other Objects as properties? The answer is that the object *reference* becomes the property value. This is the same functionality we have with variable assignment.
 
 ```js
 const obj1 = { changeMe: "" }
@@ -190,7 +189,7 @@ obj1.changeMe = "I changed!"
 console.log(obj2.obj1Here) // { changeMe: "I changed!" }
 ```
 
-This can, in some rare cases, lead to a circular Object structure where two Objects both reference *each* *other*. This becomes a problem if you want to convert the Objects to a format like JSON which doesn’t support references.
+This can, in some rare cases, lead to a circular object structure where two Objects both reference *each other*. This becomes a problem if you want to convert the objects to a format like JSON which doesn’t support references.
 
 ```js
 const obj1 = {}
