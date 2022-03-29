@@ -110,6 +110,8 @@ const value2 = { isObj: true }
 // Have a graph after this code. Display the memory. 3 memory slots
 ```
 
+![Memory addresses 1](../images/memory-1.png)
+
 When copying primitive values into other variables, a simple copy is made of the value. When copying Objects, you instead copy the reference. This means multiple variables can reference the same Object value. 
 
 ```js
@@ -121,6 +123,8 @@ obj2.changed = true
 console.log(obj1) // { changed: true }
 console.log(obj2) // { changed: true }
 ```
+
+![Memory addresses 2](../images/memory-2.png)
 
 Above, we create an Object with a reference assigned to the variable `obj1`. We then copy the reference into the variable `obj2`. When then change a property on the object that `obj2` references. This is of course the same Object that `obj1` references. They effectively share an Object.
 
