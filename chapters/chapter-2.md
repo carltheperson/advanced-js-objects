@@ -1,4 +1,4 @@
-# Chapter 2 - Exploring objects further
+# Chapter 2 - Object basics
 
 An object is a collection of properties. A property is the mapping between a key and a value.
 
