@@ -43,12 +43,12 @@ Here are the six different descriptor attributes with their default value:
 
 | Attribute name | Default value |
 | --- | --- |
-| value | undefined |
-| writable | false |
-| enumerable | false |
-| configurable | false |
-| get | undefined |
-| set | undefined |
+| value | `undefined` |
+| writable | `false` |
+| enumerable | `false` |
+| configurable | `false` |
+| get | `undefined` |
+| set | `undefined` |
 
 **value**
 
