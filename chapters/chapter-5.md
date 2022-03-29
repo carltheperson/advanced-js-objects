@@ -120,7 +120,7 @@ The prototype of `Function.prototype` is `Object.prototype`. Notice how both Obj
 
 ![Untitled](../images/Untitled4.png)
 
-## The __proto__ property
+## The \_\_proto\_\_ property
 
 If you open your browser console and access a property called `__proto__` on an Object, you will receive its prototype. 
 

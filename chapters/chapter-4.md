@@ -216,13 +216,13 @@ const proxyHandler = {
 }
 ```
 
-Trap name
+#### Trap name
 The name of the trap is the same as the internal method’s corresponding `Reflect` function. An example could be the internal method [[HasProperty]], which has a corresponding `Reflect` function called `has`. This means that the trap for [[HasProperty]] is also called `has`.
 
-Trap arguments
+#### Trap arguments
 The arguments passed to a trap will also match the arguments passed to the corresponding `Reflect` function. The `Reflect.has` function takes in two arguments, `target` and `key`. This means that the trap called `has` will also receive the arguments `target` and `key`.
 
-Trap return type
+#### Trap return type
 The expected return type of a trap will also match that of the corresponding `Reflect` function. The `Reflect.has` function returns a Boolean, which means the trap called `has` should also return a Boolean.
 
 #### Proxy targets
@@ -243,7 +243,8 @@ const proxyObj = new Proxy(target, proxyHandler)
 
 The result is an exotic Proxy Object which will call your traps when its own internal methods are called. A few useful internal methods to trap are covered below.
 
-Trapping [[Get]]
+#### Trapping [[Get]]
+
 This will call your trap for every attempt to access property values on your Object. The value that you return from your trap will act as the property value. The below Proxy Object will return a custom String for every property value requested.
 
 ```jsx
@@ -260,7 +261,7 @@ console.log(proxyObj.helloWorld) // Value for key helloWorld
 
 Note, it still is possible to circumvent this trap by getting the whole descriptor of a property. The descriptor will contain the value or a getter function. Of course, you could trap [[GetOwnProperty]] to prevent this.
 
-Trapping [[Set]]
+#### Trapping [[Set]]
 This will call your trap every time an attempt is made to assign a value to a property.  
 
 ```jsx
@@ -282,7 +283,7 @@ Note, your [[Set]] trap won’t trigger if a property is defined with a descript
 `receiver` in [[Get]] and [[Set]] traps
 You may have noticed how the [[Get]] and [[Set]] traps take in an argument called `receiver`. It could be important in certain cases. You can read about it in Appendix X. I recommend that you finish chapter x and chapter x first.
 
-Trapping [[OwnPropertyKeys]]
+#### Trapping [[OwnPropertyKeys]]
 This allows you to return a custom set of property keys for the Object.
 
 ```jsx
@@ -297,7 +298,7 @@ console.log(Object.keys(proxyObj)) // []
 
 As you can see, `Reflect.ownKeys` returns the keys we return from our Proxy trap but `Object.keys` does not. The reason for this, is that `Object.keys` only returns keys of enumerable properties. The keys we return from our Proxy trap don’t actually exist, meaning they don’t have a descriptor with an `enumerable` attribute.
 
-Trapping [[GetOwnPropertyDescriptor]]
+#### Trapping [[GetOwnPropertyDescriptor]]
 This will allow you to return custom descriptors for any call to [[GetOwnPropertyDescriptor]]. Using this, we can fix the above example by always returning a descriptor specifying that the property is enumerable.
 
 ```jsx
@@ -314,7 +315,7 @@ console.log(Object.keys(proxyObj)) // ["a", "b", "c"]
 
 This will also allow our “fake” property keys to be used with the Spread operator (`{...obj}`) and the for..in loop.
 
-> Warning: For the descriptor returned, it is required to have the `configurable` attribute set to `true` unless the target explicitly has `configurable` set to `false` for the same property.
+> ⚠️ For the descriptor returned, it is required to have the `configurable` attribute set to `true` unless the target explicitly has `configurable` set to `false` for the same property.
 > 
 
 Trap ideas
