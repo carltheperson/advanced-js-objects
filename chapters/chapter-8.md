@@ -41,7 +41,7 @@ new MyFunc() // Hello!
 
 For the class, isn’t it a bit strange that we executed the `console.log` code by calling `new MyClass()` and didn’t have to call `new MyClass.constructor()`? After all, the `console.log` code exists inside a method inside the class. But this works because the code of the `constructor` method becomes the code of the class function itself.
 
-![Untitled](Advanced%20J%207b5fc/Untitled%207.png)
+![Untitled](../images/Untitled7.png)
 
 >⚠️ A class definition doesn’t actually produce a traditional function definition like shown above. Both definitions create their own internal function Object. However, it’s safe to assume, for now, that they produce an identical function Object. Meaning, you can use the above figure as a helpful mental model.
 >
@@ -136,7 +136,7 @@ console.log(owenProto === Person.prototype) // true
 
 Below is an illustration of how `paul` and `owen` access the `sayName` method.
 
-![Untitled](Advanced%20J%207b5fc/Untitled%208.png)
+![Untitled](../images/Untitled8.png)
 
 # Static members
 
@@ -169,7 +169,7 @@ class Cat extends Animal {}
 const cat = new Cat()
 ```
 
-![Untitled](Advanced%20J%207b5fc/Untitled%209.png)
+![Untitled](../images/Untitled9.png)
 
 As we can see, the prototype of `Cat.prototype` is `Animal.prototype`. This means that properties defined on `Animal.prototype` are available to our instance `cat` through prototype chain inheritance. We can see this by defining a `sayHi` method on `Animal`.
 
@@ -268,7 +268,7 @@ new Derived()
 >💡 If you don’t define a `constructor` method inside a derived class it’s the equivalent of defining one that calls `super` with all its own arguments (`constructor(...args) { super(...args) }`)
 >
 
-**Accessing a property on super**
+#### Accessing a property on super
 
 Accessing a property on `super` will go up the prototype chain starting with the classes *parent*. This makes it useful if a method with the same name is defined in both a derived- and parent class. We can see this below where we access `method` on both `this` and `super` with different results.
 

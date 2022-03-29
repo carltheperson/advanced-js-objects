@@ -157,7 +157,7 @@ car2.drive() // Wrooooom!
 
 Above, two instances being created, `car1` and `car2`. As we can see, they are both able to access the `drive` method defined on `Car.prototype`.
 
-![Untitled](Advanced%20J%207b5fc/Untitled%205.png)
+![Untitled](../images/Untitled5.png)
 
 This is a common pattern when giving methods to JavaScript instances. The two instances don’t have a `drive` method each. Instead, they *share* the `drive` method by both having `Car.prototype` as their prototype.
 
@@ -175,7 +175,7 @@ To illustrate this, let’s create a date and visualize its prototype chain.
 const date = new Date()
 ```
 
-![Untitled](Advanced%20J%207b5fc/Untitled%206.png)
+![Untitled](../images/Untitled6.png)
 
 As we can see, both `Date.prototype` and `Object.prototype` exist in its prototype chain. This means that `instanceof` will return `true` for both `Date` and `Object`.
 

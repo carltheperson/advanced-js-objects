@@ -229,11 +229,11 @@ The expected return type of a trap will also match that of the corresponding `Re
 
 Initializing a Proxy also requires another Object called the *target*. This will serve as a fallback. If an internal method isn’t implemented in your Proxy handler, it will call the internal method on the target instead. The target is also passed to every trap as the first argument.
 
-![Untitled](Advanced%20J%207b5fc/Untitled.png)
+![Untitled](../images/Untitled.png)
 
 In the above diagram a trap is defined for ... but not for ...
 
-**Creating Proxies**
+### Creating Proxies
 
 You create a new Proxy Object with the globally available `Proxy` constructor. The first argument is the target and the second is the Proxy handler.
 

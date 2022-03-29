@@ -30,7 +30,7 @@ In the above example we define an empty Object literal. We then use `Reflect.get
 
 We now know that Objects can have an internal reference to another Object known as their prototype. This becomes more interesting when you realize that since prototypes are also Objects, prototypes can have their *own* prototype. This leads to something called the *prototype chain.* It’s the linking between potentially multiple Objects through prototypes.
 
-![Untitled](Advanced%20J%207b5fc/Untitled%201.png)
+![Untitled](../images/Untitled1.png)
 
 Above, we can see a prototype chain starting with Object A. Object A has the prototype Object B. Object B has the prototype Object C. A prototype chain ends if the prototype of an Object is `null`. This is the case for Object C.
 
@@ -50,13 +50,13 @@ This means your JavaScript engine will “clime up” the prototype chain in sea
 
 Consider these three Objects. They each have a unique property. How many of these properties are accessible to Object A?
 
-![Untitled](Advanced%20J%207b5fc/Untitled%202.png)
+![Untitled](../images/Untitled2.png)
 
 The answer is all of them. Property X exists directly on Object A and Property Y and Z exist in its prototype chain.
 
 What if the same property key exists multiple places in a prototype chain? Which property value will be returned when Property X is accessed on Object A below?
 
-![Untitled](Advanced%20J%207b5fc/Untitled%203.png)
+![Untitled](../images/Untitled3.png)
 
 The answer is Property X of Object B. It comes first in the prototype chain. When the JavaScript engine goes through the prototype chain to find a property, it stops when it finds the first occurrence.
 
@@ -118,7 +118,7 @@ console.log(Reflect.ownKeys(proto))
 
 The prototype of `Function.prototype` is `Object.prototype`. Notice how both Objects contain a method `.toString`. This means that functions don’t access the `.toString` from `Object.prototype` but instead access a more function specific `.toString` method from `Function.prototype`.
 
-![Untitled](Advanced%20J%207b5fc/Untitled%204.png)
+![Untitled](../images/Untitled4.png)
 
 ## The __proto__ property
 
