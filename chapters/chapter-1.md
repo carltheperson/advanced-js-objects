@@ -1,6 +1,6 @@
 # Chapter 1 - Getting our data structures straight
 
-To understand objects it’s essential to understand where objects fit into the JavaScript data structure scene. This chapter will first cover the different JavaScript types then cover which types contain so called *primitives*.
+To understand objects it’s essential to understand where objects fit into the JavaScript data structure scene. This chapter will first cover the different JavaScript types then cover which types contain so called *primitives*. It will also attempt to clear some confusion regarding the `typeof` operator.
 
 ## What is a type?
 
@@ -24,9 +24,9 @@ The main thing to know about types is that they group values. As you'll see, som
 
 ### String
 
-Text values are of the String type. Here is an example:
+Text values are of the String type.
 
-```jsx
+```js
 const hello = "Hello world!" // Type is String
 ```
 
@@ -36,9 +36,9 @@ You can imagine that the range of possible values for the String type is quite l
 
 ### Number
 
-There exists two types for numeric values in JavaScript. One of them is Number. It consists of 18,437,736,874,454,810,624 numeric values, half of which are positive, and the other half are negative.
+There exists two types for numeric values in JavaScript. The most common is Number. It consists of 18,437,736,874,454,810,624 numeric values, half of which are positive, and the other half are negative.
 
-```jsx
+```js
 // Type is Number
 const num1 = -250
 const num2 = 0
@@ -47,7 +47,7 @@ const num3 = 524.75
 
 The Number type also includes three special values. They are Not-a-Number, positive Infinity, and negative Infinity. They are represented as `NaN`, `+Infinity`, and `-Infinity`.
 
-```jsx
+```js
 // Type is Number
 const num1 = NaN
 const num2 = +Infinity
@@ -60,19 +60,19 @@ BigInt is an alternative type for a numeric value. It differs from Number by all
 
 You define a value to be of type BigInt by appending an `n` to your numbers.
 
-```jsx
+```js
 const num = 100n
 ```
 
 You can’t represent decimals with BigInts.
 
-```jsx
+```js
 const num = 100.5n // SyntaxError: unexpected token
 ```
 
 You also can’t mix BigInt values with values of other types.
 
-```jsx
+```js
 const num = 100n + 100 // TypeError: Cannot mix BigInt and other types
 ```
 
@@ -80,7 +80,7 @@ const num = 100n + 100 // TypeError: Cannot mix BigInt and other types
 
 The Boolean type contains only the values `true` and `false`.
 
-```jsx
+```js
 // Type is Boolean
 const bool1 = true
 const bool2 = false
@@ -90,13 +90,13 @@ const bool2 = false
 
 Symbols allow you to create your own custom unique values. You create a new Symbol value with the built-in `Symbol` constructor.
 
-```jsx
+```js
 const mySymbol = Symbol() // Type is Symbol
 ```
 
 You can optionally give your Symbols a description. This is mostly to act as documentation.
 
-```jsx
+```js
 const mySymbol = Symbol("This is my Symbol")
 ```
 
@@ -106,16 +106,24 @@ Interestingly, symbols can be used as keys on object properties. More on that la
 
 The Undefined and Null types are a bit special. They each contain just one value. Undefined contains only the value `undefined`, and Null contains only the value `null`.
 
-```jsx
+```js
 const a = undefined // Type is Undefined
 const b = null // Type is Null
 ```
 
 ### Object
 
+Objects are collections of properties. These properties map keys to values. 
+
+```js
+const obj = {
+	key: "Value"
+}
+```
+
 ## What is a primitive?
 
-Primitive values belong to the following types:
+Certain types contain values which are *primitive*. Primitive values belong to the following types:
 
 - String
 - Number
@@ -125,24 +133,22 @@ Primitive values belong to the following types:
 - Undefined
 - Null
 
-The only type that doesn’t contain primitive values is Object.
+The only type that doesn’t contain primitive values is Object. This means that all objects are non-primitive values.
 
-Primitives are represented directly at the lowest level of the language implementation.
+Primitives are represented directly at the lowest level of the language implementation. All primitives are *immutable*, meaning they can’t be changed after creation. Have you ever noticed how it’s impossible to change a string after creating it?
 
-All primitives are *immutable*, meaning they can’t be changed after creation. Have you ever noticed how it’s impossible to change a String after creating it?
-
-```jsx
+```js
 const myString = "Hello World"
 myString.repeat(5)
 console.log(myString) // Hello World
 ```
 
-The value of `myString` isn’t repeated 5 times like you might expect. The `repeat` method actually returns a new string because it can’t modify the primitive “Hello World” value.
+The value of `myString` isn’t repeated 5 times like you might expect. The `repeat` method actually returns a new string because it can’t modify the primitive `“Hello World”` value.
 
 Another quirk of primitives is that they can’t have properties/methods. This might be surprising to learn, after all, the above example uses a *method* called `repeat`. It’s true that `repeat` is a method, but it doesn’t exist on the primitive itself. The method exists on a *wrapper object*.
 All primitives except Undefined and Null have wrapper objects. When you attempt to access a property on a primitive, a wrapper object is instantiated which you access instead. The wrapper object for String types is called `String`. `String` is a globally available constructor, which means we can easily simulate the work JavaScript does under the hood. 
 
-```jsx
+```js
 const a1 = "a".repeat(5)
 const a2 = new String("a").repeat(5)
 console.log(a1) // aaaaa
@@ -153,7 +159,7 @@ In the above example, we let JavaScript create the wrapper object for `a1` but w
 
 Interestingly, the specific instance of the wrapper object only exists when you try to access a property and is discarded right after. That’s why this code doesn’t work:
 
-```jsx
+```js
 const myString = "Hello World"
 myString.someField = "Can you see me?"
 console.log(myString.someField) // undefined
@@ -176,19 +182,23 @@ Using the operator on a value produces a String that gives an indication of the 
 - `"object"`
 - `"function"`
 
-First, notice how the types are all lower case. Normally, you describe a JavaScript type in PascalCase, meaning all words start with an uppercase character e.g. BigInt.
+First, notice how all the types are represented in lower-case. Second, notice is the lack of the Null type. This is what happens if you use the `typeof` operator on `null`:
 
-Another thing to notice is the lack of the Null type. This is what happens if you use the `typeof` operator on `null`:
-
-```jsx
+```js
 console.log(typeof null) // object
 ```
 
-The type of `null` is wrongly computed to be Object. This is a bug that was introduced in the  first implementation of JavaScript. It has never been possible to correct the bug since a lot of programs depend on the false result.
+The type of `null` is wrongly computed to be Object. This is a bug that was introduced in the first implementation of JavaScript. It has never been possible to correct the bug since a lot of programs depend on the false result. If you need a more accurate way to check for objects you have to do the following.
+
+```js
+if (typeof value === "object" && value !== null) {
+	console.log("Is object")
+}
+```
 
 The last notable thing about the `typeof` operator is how it differentiates between objects and functions. Functions in JavaScript don’t have their own type and instead belong to the Object type. This is because functions are just callable Objects. So it’s reasonable to expect the `typeof` operator to return `“object”` for a function but instead it returns `“function”`.
 
-```jsx
+```js
 const func = () => {}
 console.log(typeof func) // function
 ```
