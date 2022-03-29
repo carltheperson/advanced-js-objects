@@ -88,7 +88,7 @@ const bool2 = false
 
 ### Symbol
 
-Symbols allow you to create your own custom unique values. You create a new Symbol value with the built-in `Symbol` constructor.
+Symbols allow you to create your own custom unique values. You create a new Symbol value with the built-in `Symbol` function.
 
 ```js
 const mySymbol = Symbol() // Type is Symbol
