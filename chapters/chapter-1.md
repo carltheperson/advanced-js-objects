@@ -1,10 +1,10 @@
 # Chapter 1 - Getting our data structures straight
 
-To understand objects it’s essential to understand where objects fit into the JavaScript data structure scene.
+To understand objects it’s essential to understand where objects fit into the JavaScript data structure scene. This chapter will first cover the different JavaScript types then cover which types contain so called *primitives*.
 
 ## What is a type?
 
-Every value you define will have a type. Here they are listed:
+Every value you define will have a type. Here are all JavaScript types:
 
 - String
 - Number
@@ -15,10 +15,12 @@ Every value you define will have a type. Here they are listed:
 - Null
 - Object
 
-Think of types as holding a range of values.
+Usually, you don't have to think too much about types in JavaScript. That's because types are inferred automatically from values. But being able to categorize your values into types is still quite useful. As you'll see, different types have very different capabilities.
 
-> 💡 In JavaScript, the type is assigned automatically from the value.
-> 
+The main thing to know about types is that they group values. As you'll see, some types contain more values than others, and some contain only one value. But it's important to always think of them as sets of values. All the types listed above will be further explained below.
+
+> 💡 This book will describe the name of a types using capitalization e.g. "Object" or "Number". However, when the type isn't explicitly addressed, groups of values will be described in lower-case e.g. "object(s)" or "number(s)".
+>
 
 ### String
 
@@ -30,7 +32,7 @@ const hello = "Hello world!" // Type is String
 
 In the above example the value is “Hello world!” and the type of the value is String.
 
-You can imagine that the range of possible values for the String type is quite large, which is true. The number of different string combinations is practically infinite.
+You can imagine that the range of possible values for the String type is quite large, which is true. The number of different String combinations is practically infinite.
 
 ### Number
 
@@ -98,7 +100,7 @@ You can optionally give your Symbols a description. This is mostly to act as doc
 const mySymbol = Symbol("This is my Symbol")
 ```
 
-Interestingly, symbols can be used as keys on objects. More on that later.
+Interestingly, symbols can be used as keys on object properties. More on that later.
 
 ### Undefined and Null
 
