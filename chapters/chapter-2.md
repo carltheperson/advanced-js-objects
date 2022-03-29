@@ -158,7 +158,7 @@ console.log(obj1) // { changed: false }
 console.log(obj2) // { changed: true }
 ```
 
-**Function parameters** 
+#### Function parameters
 
 An assignment similar to that of variables happens to function parameters. Consider this example:
 

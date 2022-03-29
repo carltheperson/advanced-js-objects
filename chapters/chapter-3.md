@@ -1,7 +1,7 @@
 # Chapter 3 - Property descriptors and Object restrictions
 
 
-## **Property descriptors**
+## Property descriptors
 
 So far, properties have been described as being quite simple. A property is just a key and a value. There is one more thing that determine the functionality of properties, their *descriptor*. The descriptor for a property is a set of *attributes* that define how a property may be used. Think of it as the configuration for the property.
 
@@ -50,11 +50,11 @@ Here are the six different descriptor attributes with their default value:
 | get | `undefined` |
 | set | `undefined` |
 
-**value**
+#### value
 
 This is the value of the property. 
 
-**writable**
+#### writable
 
 `writable` determines if the property should be able to be re-assigned. Setting it to `false` effectively freezes the initial value and makes the property read-only.
 
@@ -89,7 +89,7 @@ obj.prop = "New value?" // TypeError: Cannot assign to read only property
 > ⚠️ While it is not possible to re-assign a read-only property with the conventional assignment operator (`x = val`), it might still be possible to change the property’s entire descriptor if the `configurable` attribute is set to `true`. This could result in a change of value, since a different descriptor could contain a different `value` attribute.
 > 
 
-**enumerable**
+#### enumerable
 
 Setting the `enumerable` attribute to `false` can “hide” your properties in certain contexts. Throughout the following examples we will be using the same Object called `obj`. It has three properties, `a`, `b`, and `c`.
 `a` and `c` are *enumerable*, that is, their `enumerable` attribute is set to `true`. `c` is not enumerable. 
@@ -150,7 +150,7 @@ console.log(obj.propertyIsEnumerable("a")) // true
 console.log(obj.propertyIsEnumerable("b")) // false
 ```
 
-**configurable**
+#### configurable
 
 Setting the `configurable` attribute to `false` prevents your property from being deleted or having its descriptor changed.
 
@@ -198,7 +198,7 @@ Object.defineProperty(obj, "a", {
 console.log(obj) // { a: "B" }
 ```
 
-**get**
+#### get
 
 The `get` attribute can be an alternative way to provide values for properties. Instead of supplying a static value, you supply a function which will be called to retrieve the value. 
 
@@ -215,7 +215,8 @@ console.log(obj.time) // 1645720383341
 
 Note: The function will always be called with empty arguments
 
-**set**
+#### set
+
 The `set` attribute allows you to have a function be called every time an assignment is attempted for a property. The function will be called with the proposed value as an argument. The function is not required to set anything.
 
 ```jsx
@@ -251,7 +252,7 @@ Object.defineProperty(obj, "a", {
 }) // TypeError: Invalid property descriptor
 ```
 
-**Getters and setters**
+#### Getters and setters
 
 Getters and setters give a concise syntax for creating accessor properties. You create them by prefixing a method with `get` or `set` when creating Object literals. This will create a property with a descriptor containing your methods on the `get` and `set` attributes.
 
@@ -280,7 +281,7 @@ Object.defineProperty(obj, "x", {
 })
 ```
 
-## **Object restrictions**
+## Object restrictions
 
 Just like you can restrict the functionality of properties it is also possible to restrict entire Objects. There are three methods that can apply a varying amount of restriction to your Objects. They are:
 
@@ -291,7 +292,7 @@ Just like you can restrict the functionality of properties it is also possible t
 > The following code examples will be in non-Strict mode but will contain code that would throw errors in Strict mode. A line ending with a `// Failure` comment indicates that an error would be thrown in Strict mode.
 > 
 
-**Object.preventExtensions**
+#### Object.preventExtensions
 
 By default, Objects are extensible. This means it is possible to add new properties to them.  `Object.preventExtensions` prevents this by making your Objects non-extensible*.* This will only prevent *adding* new properties, and not deleting/changing existing properties.
 
@@ -307,7 +308,7 @@ console.log(obj) // { a: "A", b: "B" }
 >💡 You can check if an Object is extensible with `Object.isExtensible`
 >
 
-**Object.seal**
+#### Object.seal
 
 Sealing your Object will make it non-extensible and make every property non-configurable. The result of this is that you can’t create or delete any properties. It is still possible to change the value of properties if they are not read-only.
 
@@ -324,7 +325,7 @@ console.log(obj) // { a: "A", b: "B" }
 >💡 You can check if an Object is sealed with `Object.isSealed`
 >
 
-**Object.freeze**
+#### Object.freeze
 
 Freezing an Object makes it non-extensible and makes every property non-configurable *and* read-only. This effectively prevents the Object from being changed in any way.
 
@@ -345,7 +346,7 @@ console.log(obj) // { a: "A", b: "B" }
 > Warning: It’s not possible to undo any of the above restrictions. Once applied, your Object will remain restricted for its entire lifetime. It is, however, still possible to copy its properties into a new non-restricted Object.
 > 
 
-**Table of Object restrictions**
+#### Table of Object restrictions
 
 Below you will find a table with the three methods covered above. It allows you to reference which actions can be performed on properties belonging to restricted Objects. 
 

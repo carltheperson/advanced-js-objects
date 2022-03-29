@@ -122,7 +122,7 @@ Arrays are exotic Objects that have a different [[DefineOwnProperty]] method tha
 > The reason external Array indexes can be both Strings and Numbers, is that Numbers are converted to Strings if used as property keys.
 > 
 
-**Special case 1: The key is called “length”**
+#### Special case 1: The key is called “length”
 
 It is possible to redefine the `length` property on your Arrays. In this case, the internal method will “cut off” extra elements that would make the Array exceed the new length.
 
@@ -145,7 +145,7 @@ console.log(arr) // [ "a", "b", "c", <2 empty items> ]
 
 Your browser might explain the difference between the number of elements and the length with `<x empty items>`. Don’t be fooled by that. These “empty items” don’t actually exist.
 
-**Special case 2: The key is a valid Array index**
+#### Special case 2: The key is a valid Array index
 
 If you define a property with a valid Array index key, JavaScript will convert the key to a Number and compare it to the value of its `length` property.
 If the numeric value of the key is greater then or equal to (`>=`) the value of `length`, it will redefine `length`. The value of `length` will be set to the numeric value of the key + 1.
@@ -176,7 +176,7 @@ The length is now 6 but the amount of elements is still 3. Because of this, your
 console.log(arr) // [ "a", "b", <3 empty items>, "c" ]
 ```
 
-**Normal property assignment**
+#### Normal property assignment
 
 If a property is assigned to the Array Object that doesn’t fit the two special cases, it will be assigned normally. This won’t affect the length of the Array.
 
@@ -192,7 +192,7 @@ console.log(arr.length) // 3
 
 Proxies are the only exotic Objects that have a different implementation of every single essential internal method. When one of its internal methods are called, the Proxy can call a function of *your* choosing. You can essentially set up listeners that run custom code when internal methods are called. This is really powerful and allows you to create truly flexible Objects.
 
-**Proxy handlers**
+#### Proxy handlers
 
 When you initialize a Proxy you give it a *Proxy handler,* which is an Object. You attach methods to this Object which will be called by the Proxy. A method on a Proxy handler is called a *trap*. A trap is specific to a certain internal method.
 
@@ -225,7 +225,7 @@ The arguments passed to a trap will also match the arguments passed to the corre
 Trap return type
 The expected return type of a trap will also match that of the corresponding `Reflect` function. The `Reflect.has` function returns a Boolean, which means the trap called `has` should also return a Boolean.
 
-**Proxy targets**
+#### Proxy targets
 
 Initializing a Proxy also requires another Object called the *target*. This will serve as a fallback. If an internal method isn’t implemented in your Proxy handler, it will call the internal method on the target instead. The target is also passed to every trap as the first argument.
 

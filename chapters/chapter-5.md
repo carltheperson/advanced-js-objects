@@ -67,7 +67,7 @@ The answer is Property X of Object B. It comes first in the prototype chain. Whe
 
 Some Objects are used as the default prototype for the Objects you create. It’s useful to understand these so you know which properties your Objects inherit. Two important standard prototypes will be covered below.
 
-**Object.prototype**
+#### Object.prototype
 If you create an Object literal, the prototype will be an Object called `Object.prototype`. It isn’t just specific to Object literals however. It is no doubt the most important Object in the context of prototypes. It is present in the prototype chain of practically every Object in JavaScript. It’s found at the end of the chain right before `null`.
 
 For Object literals, it’s the first and only prototype.
@@ -93,7 +93,8 @@ console.log(Reflect.ownKeys(proto))
 ] */
 ```
 
-**Function.prototype**
+#### Function.prototype
+
 The prototype of the functions you create will be `Function.prototype`. It contains useful methods like `apply`, `bind`, and `call` which will be covered later.
 
 ```jsx
@@ -119,7 +120,7 @@ The prototype of `Function.prototype` is `Object.prototype`. Notice how both Obj
 
 ![Untitled](Advanced%20J%207b5fc/Untitled%204.png)
 
-## The **__proto__ property**
+## The __proto__ property
 
 If you open your browser console and access a property called `__proto__` on an Object, you will receive its prototype. 
 
