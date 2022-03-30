@@ -1,12 +1,12 @@
 # Chapter 3 - Property descriptors and object restrictions
 
-This chapter will cover ways that you can restrict or alter the functionality of objects.  
+This chapter will cover ways that you can restrict or alter the functionality of objects. This can be done in two ways. The first is using *descriptors* which effect individual properties. The second is using one of the three functions that restrict entire objects. Both of these ways will be covered below.
 
 # Property descriptors
 
-So far, properties have been described as being quite simple. A property is just a key and a value. There is one more thing that determine the functionality of properties, their *descriptor*. The descriptor for a property is a set of *attributes* that define how a property may be used. Think of it as the configuration for the property.
+So far, properties have been described as being quite simple. A property is just a key and a value. There is one more thing that determine the functionality of properties, their descriptor. The descriptor for a property is a set of *attributes* that define how a property may be used. Think of it as the configuration for the property.
 
-You can retrieve the descriptor for a property with `Object.getOwnPropertyDescriptor`. The first argument is the Object and the second argument is the property key. Here is what the descriptor for `JSON.stringify` looks like: 
+You can retrieve the descriptor for a property with `Object.getOwnPropertyDescriptor`. The first argument is the object and the second argument is the property key. Here is what the descriptor for `JSON.stringify` looks like: 
 
 ```js
 console.log(Object.getOwnPropertyDescriptor(JSON, "stringify"))
@@ -18,9 +18,9 @@ console.log(Object.getOwnPropertyDescriptor(JSON, "stringify"))
   } */
 ```
 
-As you can see, the descriptor is presented as an Object with a few properties. Each of these properties represent some functionality associated with `JSON.stringify`. An interesting one is `value`. It literally represents the value of `JSON.stringify`. As we can see, the value of `JSON.stringify` is a function. All the different descriptor attributes will be covered in a bit.
+As you can see, the descriptor is presented as an object with a few properties. Each of these properties represent some functionality associated with `JSON.stringify`. An interesting one is `value`. It literally represents the value of `JSON.stringify`. As we can see, the value of `JSON.stringify` is a function. All the different descriptor attributes will be covered in a bit.
 
-You can define a property with a custom descriptor using `Object.defineProperty`. It takes in three arguments. The first argument is the Object, the second is the property key, and the third is the actual descriptor.
+You can define a property with a custom descriptor using `Object.defineProperty`. It takes in three arguments. The first argument is the object, the second is the property key, and the third is the actual descriptor.
 
 ```js
 const obj = {}
@@ -28,15 +28,16 @@ const obj = {}
 Object.defineProperty(obj, "myKey", {
   value: "Hello!",
   writable: true,
-  enumerable: true
+  enumerable: true,
+  configurable: true
 })
 
 console.log(obj) // { myKey: "Hello!" }
 ```
 
-> 💡 Descriptors are managed by the internals of JavaScript. They are not actually real Objects, but are instead kept in a more primitive internal structure. However, when we interact with descriptors they are converted to Objects. This gives them a familiar form. For sake of simplicity, assume that descriptors are Objects. 
+> 💡 Descriptors are managed by the internals of JavaScript. They are not actually real objects, but are instead kept in a more primitive internal structure. However, when we interact with descriptors they are converted to objects. This gives them a familiar form. For sake of simplicity, assume that descriptors are objects. 
 >
-> This also explains why descriptor members are called *attributes* and not properties. They are represented to us as Object properties but aren’t actually kept as such.
+> This also explains why descriptor members are called *attributes* and not properties. They are represented to us as object properties but aren’t actually kept as such.
 > 
 
 ## Descriptor attributes
@@ -54,7 +55,17 @@ Here are the six different descriptor attributes with their default value:
 
 ### value
 
-This is the value of the property. 
+The `value` attribute, if defined, represents the actual value of the property.
+
+```js
+const obj = { myKey: 10 }
+const desc = Object.getOwnPropertyDescriptor(obj, "myKey")
+console.log(desc.value) // 10
+```
+
+> 💡 The `value` attribute won't represent the value of your property if it's a *getter*. A getter will instead use the `get` attribute. This will be covered later.
+> 
+
 
 ### writable
 
@@ -95,7 +106,7 @@ obj.prop = "New value?" // TypeError: Cannot assign to read only property
 
 ### enumerable
 
-Setting the `enumerable` attribute to `false` can “hide” your properties in certain contexts. Throughout the following examples we will be using the same Object called `obj`. It has three properties, `a`, `b`, and `c`.
+Setting the `enumerable` attribute to `false` can “hide” your properties in certain contexts. Throughout the following examples we will be using the same object called `obj`. It has three properties, `a`, `b`, and `c`.
 
 `a` and `c` are *enumerable*, that is, their `enumerable` attribute is set to `true`.
 
@@ -111,7 +122,7 @@ Object.defineProperty(obj, "c", { value: "C", enumerable: true })
 
 <ins>Spread operator</ins>
 
-The Spread operator is a way to combine Objects by *spreading* an Object into another. However, the Spread operator will only copy over properties that are enumerable.
+The Spread operator is a way to combine objects by *spreading* an object into another. However, the Spread operator will only copy over properties that are enumerable.
 
 ```js
 const newObj = { ...obj }
@@ -120,7 +131,7 @@ console.log(Object.getOwnPropertyNames(newObj)) // [ "a", "c" ]
 
 <ins>Retrieving an array of property keys</ins>
 
-Normally, when you want to get an array of property keys for an Object you use `Object.keys`. This, like the spread operator, will only give you enumerable property keys. If you want to include non-enumerable property keys you can use `Object.getOwnPropertyNames`.
+Normally, when you want to get an array of property keys for an object you use `Object.keys`. This, like the spread operator, will only give you enumerable property keys. If you want to include non-enumerable property keys you can use `Object.getOwnPropertyNames`.
 
 ```js
 console.log(Object.keys(obj)) // [ "a", "c" ]
@@ -132,7 +143,7 @@ console.log(Object.getOwnPropertyNames(obj)) // [ "a", "b", "c"" ]
 
 <ins>console.log</ins>
 
-In NodeJS, logging an Object with `console.log` with only show enumerable properties.
+In NodeJS, logging an object with `console.log` with only show enumerable properties.
 
 ```js
 console.log(obj) // { a: "A", c: "C" }
@@ -150,12 +161,12 @@ for (const value in obj) {
 // C is enumerable!
 ```
 
-> ⚠️ The for...in loop will also include enumerable properties from the *prototype chain* of the Object. The prototypes chain will be covered in a [later chapter](./chapter-5.md), but it’s basically a way to set up inheritance between Objects. These inherited properties will also be included in the for...in loop if they are enumerable.
+> ⚠️ The for...in loop will also include enumerable properties from the *prototype chain* of the object. The prototypes chain will be covered in a [later chapter](./chapter-5.md), but it’s basically a way to set up inheritance between objects. These inherited properties will also be included in the for...in loop if they are enumerable.
 > 
 
 <ins>Checking if a property is enumerable</ins>
 
-If you want a simple way to check if a property is enumerable you can use `propertyIsEnumerable`. You call this method on the Object itself.
+If you want a simple way to check if a property is enumerable you can use `propertyIsEnumerable`. You call this method on the object itself.
 
 ```js
 console.log(obj.propertyIsEnumerable("a")) // true
@@ -168,7 +179,7 @@ Setting the `configurable` attribute to `false` prevents your property from bein
 
 <ins>delete operator</ins>
 
-The delete operator will is used to remove properties from Objects. You can only use it to remove configurable properties. If you’re in Strict mode and attempt to delete a non-configurable property, an error will be thrown. If you’re not in Strict mode the deletion just silently fails. 
+The delete operator will is used to remove properties from objects. You can only use it to remove configurable properties. If you’re in Strict mode and attempt to delete a non-configurable property, an error will be thrown. If you’re not in Strict mode the deletion just silently fails. 
 
 ```js
 const obj = {}
@@ -269,9 +280,45 @@ Object.defineProperty(obj, "a", {
 }) // TypeError: Invalid property descriptor
 ```
 
-### Getters and setters
+### Data properties
 
-Getters and setters give a concise syntax for creating accessor properties. You create them by prefixing a method with `get` or `set` when creating Object literals. This will create a property with a descriptor containing your methods on the `get` and `set` attributes.
+Data properties are the most common type of properties. Their value can only change through re-assignment.
+
+```js
+const obj = {}
+
+Object.defineProperty(obj,"prop", {
+	value: 10
+}) // <-- Data property
+```
+
+#### Object literal data properties
+
+The common way to create object literal properties, using a colon (`:`), creates data properties.
+
+```js
+const obj = {
+  prop: 10 // <-- Data property
+}
+```
+
+### Accessor properties
+
+Accessor properties are more dynamic. Instead of using the `value` attribute, they use `get` and `set`. These attributes hold methods which are called when reading/assignment of the property is attempted.
+
+
+```js
+const obj = {}
+
+Object.defineProperty(obj,"prop", {
+	get: () => 10,
+	set: (val) => {}
+}) // <-- Accessor property
+```
+
+#### Getters and setters
+
+Getters and setters give a concise syntax for creating accessor properties. You create them by prefixing a method with `get` or `set` when creating object literals. This will create a property with a descriptor containing your methods on the `get` and `set` attributes.
 
 ```js
 const obj = {
@@ -300,13 +347,13 @@ Object.defineProperty(obj, "x", {
 
 # Object restrictions
 
-Just like you can restrict the functionality of properties it is also possible to restrict entire Objects. There are three methods that can apply a varying amount of restriction to your Objects. They are:
+Just like you can restrict the functionality of properties it is also possible to restrict entire objects. There are three methods that can apply a varying amount of restriction to your objects. They are:
 
-- `Object.preventExtensions` - Makes your Objects non-*extensible*
-- `Object.seal` - Makes your Objects *sealed*
-- `Object.freeze` - Makes your Objects *frozen*
+- `Object.preventExtensions` - Makes your objects non-*extensible*
+- `Object.seal` - Makes your objects *sealed*
+- `Object.freeze` - Makes your objects *frozen*
 
-> ⚠️ It’s not possible to undo any of the these restrictions. Once applied, your Object will remain restricted for its entire lifetime. It is, however, still possible to copy its properties into a new non-restricted Object.
+> ⚠️ It’s not possible to undo any of the these restrictions. Once applied, your object will remain restricted for its entire lifetime. It is, however, still possible to copy its properties into a new non-restricted object.
 > 
 
 > ⚠️ The following code examples will be in non-Strict mode but will contain code that would throw errors in Strict mode. A line ending with a `// Failure` comment indicates that an error would be thrown in Strict mode.
@@ -314,7 +361,7 @@ Just like you can restrict the functionality of properties it is also possible t
 
 ### Object.preventExtensions
 
-By default, Objects are extensible. This means it is possible to add new properties to them. `Object.preventExtensions` prevents this by making your Objects non-extensible.
+By default, objects are extensible. This means it is possible to add new properties to them. `Object.preventExtensions` prevents this by making your objects non-extensible.
 
 ```js
 const obj = { a: "A", b: "B" }
@@ -328,12 +375,12 @@ console.log(obj) // { a: "A", b: "B" }
 >⚠️ This will only prevent *adding* new properties, and not deleting/changing existing properties.
 >
 
->💡 You can check if an Object is extensible with `Object.isExtensible`
+>💡 You can check if an object is extensible with `Object.isExtensible`
 >
 
 ### Object.seal
 
-Sealing your Object will make it non-extensible and make every property non-configurable. The result of this is that you can’t create or delete any properties. It is still possible to change the value of properties if they are not read-only.
+Sealing your object will make it non-extensible and make every property non-configurable. The result of this is that you can’t create or delete any properties. It is still possible to change the value of properties if they are not read-only.
 
 ```js
 const obj = { a: "A", b: "B" }
@@ -345,12 +392,12 @@ obj.c = "C" // Failure
 console.log(obj) // { a: "A", b: "B" }
 ```
 
->💡 You can check if an Object is sealed with `Object.isSealed`
+>💡 You can check if an object is sealed with `Object.isSealed`
 >
 
 ### Object.freeze
 
-Freezing an Object makes it non-extensible and makes every property non-configurable *and* read-only. This effectively prevents the Object from being changed in any way.
+Freezing an object makes it non-extensible and makes every property non-configurable *and* read-only. This effectively prevents the object from being changed in any way.
 
 ```js
 const obj = { a: "A", b: "B" }
@@ -363,13 +410,13 @@ obj.c = "C" // Failure
 console.log(obj) // { a: "A", b: "B" }
 ```
 
-> 💡 You can check if an Object is frozen with `Object.isFrozen`
+> 💡 You can check if an object is frozen with `Object.isFrozen`
 >
 
 
-### Table of Object restrictions
+### Table of object restrictions
 
-Below you will find a table with the three methods covered above. It allows you to reference which actions can be performed on properties belonging to restricted Objects. 
+Below you will find a table with the three methods covered above. It allows you to reference which actions can be performed on properties belonging to restricted objects. 
 
 |  | Create  | Delete | Change | Read |
 | --- | --- | --- | --- | --- |
