@@ -1,5 +1,6 @@
 # Chapter 3 - Property descriptors and object restrictions
 
+This chapter will cover ways that you can restrict or alter the functionality of objects.  
 
 # Property descriptors
 
@@ -34,6 +35,7 @@ console.log(obj) // { myKey: "Hello!" }
 ```
 
 > 💡 Descriptors are managed by the internals of JavaScript. They are not actually real Objects, but are instead kept in a more primitive internal structure. However, when we interact with descriptors they are converted to Objects. This gives them a familiar form. For sake of simplicity, assume that descriptors are Objects. 
+>
 > This also explains why descriptor members are called *attributes* and not properties. They are represented to us as Object properties but aren’t actually kept as such.
 > 
 
@@ -160,7 +162,8 @@ console.log(obj.propertyIsEnumerable("b")) // false
 
 Setting the `configurable` attribute to `false` prevents your property from being deleted or having its descriptor changed.
 
-delete operator
+<ins>delete operator</ins>
+
 The delete operator will is used to remove properties from Objects. You can only use it to remove configurable properties. If you’re in Strict mode and attempt to delete a non-configurable property, an error will be thrown. If you’re not in Strict mode the deletion just silently fails. 
 
 ```jsx
@@ -182,7 +185,8 @@ console.log(obj) // { a: "A" }
 delete obj.a // TypeError: Cannot delete property "a"
 ```
 
-Changing a properties descriptor
+<ins>Changing a properties descriptor</ins>
+
 `Object.defineProperty` can be used to define a new property but also change an existing property’s descriptor, if that property is configurable.
 
 ```jsx
@@ -352,7 +356,7 @@ console.log(obj) // { a: "A", b: "B" }
 > 💡 You can check if an Object is frozen with `Object.isFrozen`
 >
 
-> Warning: It’s not possible to undo any of the above restrictions. Once applied, your Object will remain restricted for its entire lifetime. It is, however, still possible to copy its properties into a new non-restricted Object.
+> ⚠️ It’s not possible to undo any of the above restrictions. Once applied, your Object will remain restricted for its entire lifetime. It is, however, still possible to copy its properties into a new non-restricted Object.
 > 
 
 ### Table of Object restrictions
