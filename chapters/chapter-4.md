@@ -231,7 +231,7 @@ The expected return type of a trap will also match that of the corresponding `Re
 
 Initializing a proxy also requires another Object called the *target*. This will serve as a fallback. If an internal method isn’t implemented in your proxy handler, it will call the internal method on the target instead. The target is also passed to every trap as the first argument.
 
-The below diagram shows a proxy that has traps for 3 internal methods. 
+The below diagram shows a proxy that has traps for 3 internal methods. As you can see, the internal methods without traps default to the target methods.
 
 ![Proxy traps](../images/proxy-traps.png)
 
