@@ -1,7 +1,7 @@
 # Chapter 3 - Property descriptors and object restrictions
 
 
-## Property descriptors
+# Property descriptors
 
 So far, properties have been described as being quite simple. A property is just a key and a value. There is one more thing that determine the functionality of properties, their *descriptor*. The descriptor for a property is a set of *attributes* that define how a property may be used. Think of it as the configuration for the property.
 
@@ -34,10 +34,10 @@ console.log(obj) // { myKey: "Hello!" }
 ```
 
 > 💡 Descriptors are managed by the internals of JavaScript. They are not actually real Objects, but are instead kept in a more primitive internal structure. However, when we interact with descriptors they are converted to Objects. This gives them a familiar form. For sake of simplicity, assume that descriptors are Objects. 
-This also explains why descriptor members are called *attributes* and not properties. They are represented to us as Object properties but aren’t actually kept as such.
+> This also explains why descriptor members are called *attributes* and not properties. They are represented to us as Object properties but aren’t actually kept as such.
 > 
 
-### Descriptor attributes
+## Descriptor attributes
 
 Here are the six different descriptor attributes with their default value:
 
@@ -50,11 +50,11 @@ Here are the six different descriptor attributes with their default value:
 | `get` | `undefined` |
 | `set` | `undefined` |
 
-#### value
+### value
 
 This is the value of the property. 
 
-#### writable
+### writable
 
 `writable` determines if the property should be able to be re-assigned. Setting it to `false` effectively freezes the initial value and makes the property read-only.
 
@@ -89,9 +89,10 @@ obj.prop = "New value?" // TypeError: Cannot assign to read only property
 > ⚠️ While it is not possible to re-assign a read-only property with the conventional assignment operator (`x = val`), it might still be possible to change the property’s entire descriptor if the `configurable` attribute is set to `true`. This could result in a change of value, since a different descriptor could contain a different `value` attribute.
 > 
 
-#### enumerable
+### enumerable
 
 Setting the `enumerable` attribute to `false` can “hide” your properties in certain contexts. Throughout the following examples we will be using the same Object called `obj`. It has three properties, `a`, `b`, and `c`.
+
 `a` and `c` are *enumerable*, that is, their `enumerable` attribute is set to `true`. `c` is not enumerable. 
 
 ```jsx
@@ -102,15 +103,17 @@ Object.defineProperty(obj, "b", { value: "B", enumerable: false })
 Object.defineProperty(obj, "c", { value: "C", enumerable: true })
 ```
 
-Spread operator
-The Spread operator is a way to combine Objects by *spreading* an Object into another. However, the Spread operator will only copy over properties that are enumerable*.*
+<ins>Spread operator</ins>
+
+The Spread operator is a way to combine Objects by *spreading* an Object into another. However, the Spread operator will only copy over properties that are enumerable.
 
 ```jsx
 const newObj = { ...obj }
 console.log(Object.getOwnPropertyNames(newObj)) // [ "a", "c" ]
 ```
 
-Retrieving an array of property key
+<ins>Retrieving an array of property keys</ins>
+
 Normally, when you want to get an array of property keys for an Object you use `Object.keys`. This, like the spread operator, will only give you enumerable property keys. If you want to include non-enumerable property keys you can use `Object.getOwnPropertyNames`.
 
 ```jsx
@@ -121,14 +124,16 @@ console.log(Object.getOwnPropertyNames(obj)) // [ "a", "b", "c"" ]
 > ⚠️ None of these methods return properties with Symbol keys. If you want **all** property keys for an object you can use `Reflect.ownKeys`
 > 
 
-console.log
+<ins>console.log</ins>
+
 In NodeJS, logging an Object with `console.log` with only show enumerable properties.
 
 ```jsx
 console.log(obj) // { a: "A", c: "C" }
 ```
 
-for...in loop
+<ins>for...in loop</ins>
+
 The for...in loop gives you a convenient way to iterate over property values. It ignores non-enumerable and Symbol properties.
 
 ```jsx
@@ -139,10 +144,11 @@ for (const value in obj) {
 // C is enumerable!
 ```
 
-> ⚠️ The for...in loop will also include enumerable properties from the *prototype chain* of the Object. The prototypes chain will be covered in a later section, but it’s basically a way to set up inheritance between Objects. These inherited properties will be included in the for...in loop if they are enumerable.
+> ⚠️ The for...in loop will also include enumerable properties from the *prototype chain* of the Object. The prototypes chain will be covered in a [later chapter](./chapter-5.md), but it’s basically a way to set up inheritance between Objects. These inherited properties will also be included in the for...in loop if they are enumerable.
 > 
 
-Checking if a property is enumerable
+<ins>Checking if a property is enumerable</ins>
+
 If you want a simple way to check if a property is enumerable you can use `propertyIsEnumerable`. You call this method on the Object itself.
 
 ```jsx
@@ -150,7 +156,7 @@ console.log(obj.propertyIsEnumerable("a")) // true
 console.log(obj.propertyIsEnumerable("b")) // false
 ```
 
-#### configurable
+### configurable
 
 Setting the `configurable` attribute to `false` prevents your property from being deleted or having its descriptor changed.
 
@@ -198,7 +204,7 @@ Object.defineProperty(obj, "a", {
 console.log(obj) // { a: "B" }
 ```
 
-#### get
+### get
 
 The `get` attribute can be an alternative way to provide values for properties. Instead of supplying a static value, you supply a function which will be called to retrieve the value. 
 
@@ -215,7 +221,7 @@ console.log(obj.time) // 1645720383341
 
 Note: The function will always be called with empty arguments
 
-#### set
+### set
 
 The `set` attribute allows you to have a function be called every time an assignment is attempted for a property. The function will be called with the proposed value as an argument. The function is not required to set anything.
 
@@ -252,7 +258,7 @@ Object.defineProperty(obj, "a", {
 }) // TypeError: Invalid property descriptor
 ```
 
-#### Getters and setters
+### Getters and setters
 
 Getters and setters give a concise syntax for creating accessor properties. You create them by prefixing a method with `get` or `set` when creating Object literals. This will create a property with a descriptor containing your methods on the `get` and `set` attributes.
 
@@ -281,7 +287,7 @@ Object.defineProperty(obj, "x", {
 })
 ```
 
-## Object restrictions
+# Object restrictions
 
 Just like you can restrict the functionality of properties it is also possible to restrict entire Objects. There are three methods that can apply a varying amount of restriction to your Objects. They are:
 
@@ -292,9 +298,9 @@ Just like you can restrict the functionality of properties it is also possible t
 > The following code examples will be in non-Strict mode but will contain code that would throw errors in Strict mode. A line ending with a `// Failure` comment indicates that an error would be thrown in Strict mode.
 > 
 
-#### Object.preventExtensions
+### Object.preventExtensions
 
-By default, Objects are extensible. This means it is possible to add new properties to them.  `Object.preventExtensions` prevents this by making your Objects non-extensible. This will only prevent *adding* new properties, and not deleting/changing existing properties.
+By default, Objects are extensible. This means it is possible to add new properties to them.  `Object.preventExtensions` prevents this by making your Objects non-extensible.
 
 ```jsx
 const obj = { a: "A", b: "B" }
@@ -305,10 +311,13 @@ obj.c = "C" // Failure
 console.log(obj) // { a: "A", b: "B" }
 ```
 
+>⚠️ This will only prevent *adding* new properties, and not deleting/changing existing properties.
+>
+
 >💡 You can check if an Object is extensible with `Object.isExtensible`
 >
 
-#### Object.seal
+### Object.seal
 
 Sealing your Object will make it non-extensible and make every property non-configurable. The result of this is that you can’t create or delete any properties. It is still possible to change the value of properties if they are not read-only.
 
@@ -325,7 +334,7 @@ console.log(obj) // { a: "A", b: "B" }
 >💡 You can check if an Object is sealed with `Object.isSealed`
 >
 
-#### Object.freeze
+### Object.freeze
 
 Freezing an Object makes it non-extensible and makes every property non-configurable *and* read-only. This effectively prevents the Object from being changed in any way.
 
@@ -346,7 +355,7 @@ console.log(obj) // { a: "A", b: "B" }
 > Warning: It’s not possible to undo any of the above restrictions. Once applied, your Object will remain restricted for its entire lifetime. It is, however, still possible to copy its properties into a new non-restricted Object.
 > 
 
-#### Table of Object restrictions
+### Table of Object restrictions
 
 Below you will find a table with the three methods covered above. It allows you to reference which actions can be performed on properties belonging to restricted Objects. 
 
