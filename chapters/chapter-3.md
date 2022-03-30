@@ -1,4 +1,4 @@
-# Chapter 3 - Property descriptors and Object restrictions
+# Chapter 3 - Property descriptors and object restrictions
 
 
 ## Property descriptors
@@ -33,7 +33,7 @@ Object.defineProperty(obj, "myKey", {
 console.log(obj) // { myKey: "Hello!" }
 ```
 
-> Descriptors are managed by the internals of JavaScript. They are not actually real Objects, but are instead kept in a more primitive internal structure. However, when we interact with descriptors they are converted to Objects. This gives them a familiar form. For sake of simplicity, assume that descriptors are Objects. 
+> 💡 Descriptors are managed by the internals of JavaScript. They are not actually real Objects, but are instead kept in a more primitive internal structure. However, when we interact with descriptors they are converted to Objects. This gives them a familiar form. For sake of simplicity, assume that descriptors are Objects. 
 This also explains why descriptor members are called *attributes* and not properties. They are represented to us as Object properties but aren’t actually kept as such.
 > 
 
@@ -43,12 +43,12 @@ Here are the six different descriptor attributes with their default value:
 
 | Attribute name | Default value |
 | --- | --- |
-| value | `undefined` |
-| writable | `false` |
-| enumerable | `false` |
-| configurable | `false` |
-| get | `undefined` |
-| set | `undefined` |
+| `value` | `undefined` |
+| `writable` | `false` |
+| `enumerable` | `false` |
+| `configurable` | `false` |
+| `get` | `undefined` |
+| `set` | `undefined` |
 
 #### value
 
@@ -233,14 +233,14 @@ obj.setMe = 100 // You want to set 100!
 
 There are two ways to categorize properties. Properties are either *data properties* or *accessor properties*. You categorize these different types of properties by their descriptor. Certain descriptor attributes are reserved for data properties and some are reserved for accessor properties. Additionally, some attributes can exist in both data and accessor properties. This table shows the 
 
-| Attribute name | Which type of property does it represent |
+| Attribute name | Type of property it represents |
 | --- | --- |
-| value | Data property  |
-| writable | Data property  |
-| get | Accessor property |
-| set | Accessor property |
-| enumerable | Data property or accessor property |
-| configurable | Data property or accessor property |
+| `value` | Data property  |
+| `writable` | Data property  |
+| `get` | Accessor property |
+| `set` | Accessor property |
+| `enumerable` | Data property or accessor property |
+| `configurable` | Data property or accessor property |
 
 One implication of this, is that you can’t define a descriptor with e.g. a `value` and `get` attribute. It’s helpful to keep this in mind when defining descriptors. An error will be thrown if you try to mix attributes for data properties with those for accessor properties.
 
@@ -294,7 +294,7 @@ Just like you can restrict the functionality of properties it is also possible t
 
 #### Object.preventExtensions
 
-By default, Objects are extensible. This means it is possible to add new properties to them.  `Object.preventExtensions` prevents this by making your Objects non-extensible*.* This will only prevent *adding* new properties, and not deleting/changing existing properties.
+By default, Objects are extensible. This means it is possible to add new properties to them.  `Object.preventExtensions` prevents this by making your Objects non-extensible. This will only prevent *adding* new properties, and not deleting/changing existing properties.
 
 ```jsx
 const obj = { a: "A", b: "B" }
