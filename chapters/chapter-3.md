@@ -85,6 +85,8 @@ If you attempt to re-assign a read-only property in Strict mode an error will be
 ```js
 "use strict"
 
+// ...
+
 obj.prop = "New value?" // TypeError: Cannot assign to read only property
 ```
 
@@ -107,7 +109,7 @@ Object.defineProperty(obj, "b", { value: "B", enumerable: false })
 Object.defineProperty(obj, "c", { value: "C", enumerable: true })
 ```
 
-<u>Spread operator</u>
+<ins>Spread operator</ins>
 
 The Spread operator is a way to combine Objects by *spreading* an Object into another. However, the Spread operator will only copy over properties that are enumerable.
 
@@ -116,7 +118,7 @@ const newObj = { ...obj }
 console.log(Object.getOwnPropertyNames(newObj)) // [ "a", "c" ]
 ```
 
-<u>Retrieving an array of property keys</u>
+<ins>Retrieving an array of property keys</ins>
 
 Normally, when you want to get an array of property keys for an Object you use `Object.keys`. This, like the spread operator, will only give you enumerable property keys. If you want to include non-enumerable property keys you can use `Object.getOwnPropertyNames`.
 
@@ -128,7 +130,7 @@ console.log(Object.getOwnPropertyNames(obj)) // [ "a", "b", "c"" ]
 > ⚠️ None of these methods return properties with Symbol keys. If you want **all** property keys for an object you can use `Reflect.ownKeys`
 > 
 
-<u>console.log</u>
+<ins>console.log</ins>
 
 In NodeJS, logging an Object with `console.log` with only show enumerable properties.
 
@@ -136,7 +138,7 @@ In NodeJS, logging an Object with `console.log` with only show enumerable proper
 console.log(obj) // { a: "A", c: "C" }
 ```
 
-<u>for...in loop</u>
+<ins>for...in loop</ins>
 
 The for...in loop gives you a convenient way to iterate over property values. It ignores non-enumerable and Symbol properties.
 
@@ -151,7 +153,7 @@ for (const value in obj) {
 > ⚠️ The for...in loop will also include enumerable properties from the *prototype chain* of the Object. The prototypes chain will be covered in a [later chapter](./chapter-5.md), but it’s basically a way to set up inheritance between Objects. These inherited properties will also be included in the for...in loop if they are enumerable.
 > 
 
-<u>Checking if a property is enumerable</u>
+<ins>Checking if a property is enumerable</ins>
 
 If you want a simple way to check if a property is enumerable you can use `propertyIsEnumerable`. You call this method on the Object itself.
 
@@ -164,7 +166,7 @@ console.log(obj.propertyIsEnumerable("b")) // false
 
 Setting the `configurable` attribute to `false` prevents your property from being deleted or having its descriptor changed.
 
-<u>delete operator</u>
+<ins>delete operator</ins>
 
 The delete operator will is used to remove properties from Objects. You can only use it to remove configurable properties. If you’re in Strict mode and attempt to delete a non-configurable property, an error will be thrown. If you’re not in Strict mode the deletion just silently fails. 
 
@@ -190,7 +192,7 @@ console.log(obj) // { a: "A" }
 delete obj.a // TypeError: Cannot delete property "a"
 ```
 
-<u>Changing a properties descriptor</u>
+<ins>Changing a properties descriptor</ins>
 
 `Object.defineProperty` can be used to define a new property but also change an existing property’s descriptor, if that property is configurable.
 
