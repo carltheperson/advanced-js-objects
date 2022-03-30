@@ -110,7 +110,7 @@ Setting the `enumerable` attribute to `false` can “hide” your properties in 
 
 `a` and `c` are *enumerable*, that is, their `enumerable` attribute is set to `true`.
 
-`c` is not enumerable. 
+`b` is not enumerable. 
 
 ```js
 const obj = {}
@@ -122,7 +122,7 @@ Object.defineProperty(obj, "c", { value: "C", enumerable: true })
 
 <ins>Spread operator</ins>
 
-The Spread operator is a way to combine objects by *spreading* an object into another. However, the Spread operator will only copy over properties that are enumerable.
+The spread operator is a way to combine objects by *spreading* an object into another. However, the spread operator will only copy over properties that are enumerable.
 
 ```js
 const newObj = { ...obj }
@@ -138,12 +138,12 @@ console.log(Object.keys(obj)) // [ "a", "c" ]
 console.log(Object.getOwnPropertyNames(obj)) // [ "a", "b", "c"" ]
 ```
 
-> ⚠️ None of these methods return properties with Symbol keys. If you want **all** property keys for an object you can use `Reflect.ownKeys`
+> ⚠️ None of these methods return properties with symbol keys. If you want *all* property keys for an object you can use `Reflect.ownKeys`
 > 
 
 <ins>console.log</ins>
 
-In NodeJS, logging an object with `console.log` with only show enumerable properties.
+In NodeJS and Deno, logging an object with `console.log` with only show enumerable properties.
 
 ```js
 console.log(obj) // { a: "A", c: "C" }
@@ -175,7 +175,7 @@ console.log(obj.propertyIsEnumerable("b")) // false
 
 ### configurable
 
-Setting the `configurable` attribute to `false` prevents your property from being deleted or having its descriptor changed.
+Setting the `configurable` attribute to `false` prevents your property from being deleted or having their descriptor changed.
 
 <ins>delete operator</ins>
 
@@ -289,7 +289,9 @@ const obj = {}
 
 Object.defineProperty(obj,"prop", {
 	value: 10
-}) // <-- Data property
+})
+
+obj.prop // <-- Data property
 ```
 
 #### Object literal data properties
@@ -298,8 +300,10 @@ The common way to create object literal properties, using a colon (`:`), creates
 
 ```js
 const obj = {
-  prop: 10 // <-- Data property
+  prop: 10
 }
+
+obj.prop // <-- Data property
 ```
 
 ### Accessor properties
@@ -313,7 +317,9 @@ const obj = {}
 Object.defineProperty(obj,"prop", {
 	get: () => 10,
 	set: (val) => {}
-}) // <-- Accessor property
+})
+
+obj.prop // <-- Accessor property
 ```
 
 #### Getters and setters
