@@ -114,7 +114,7 @@ There are three methods that let you manipulate the `this` inside functions. The
 
 ### bind
 
-`bind` creates a new function with a `this` that you specify. The function it creates will have your `this` no matter how its called. 
+`bind` creates a new function with a `this` that you specify. The function it creates will have your `this` no the context. 
 
 ```js
 function f1() {
@@ -127,7 +127,7 @@ console.log(f2()) // { iAmThis: true }
 
 ### call
 
-`call` is similar to bind, but it calls the function directly with the new `this` instead of creating a new function. The first argument is the `this`, and the rest are the arguments that should be passed to the function.
+`call` is similar to `bind`, but it calls the function directly with the new `this` instead of creating a new function. The first argument is the `this`, and the rest are the arguments that should be passed to the function.
 
 ```jsx
 function increaseAge(amount) {
@@ -212,5 +212,5 @@ const customThis = {}
 
 console.log(func.bind(customThis)() === customThis) // false
 console.log(func.call(customThis) === customThis) // false
-console.log(func.apply([customThis]) === customThis) // false
+console.log(func.apply(customThis) === customThis) // false
 ```
