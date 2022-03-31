@@ -1,6 +1,6 @@
 # Chapter 5 - Prototypes
 
-Have you ever thought about how you are able to call `toString` on seemingly every object? 
+Have you ever thought about how you are able to call `.toString` on seemingly every object? 
 
 ```js
 const obj = {}
