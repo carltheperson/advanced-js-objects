@@ -4,7 +4,7 @@ To understand objects it’s essential to understand where objects fit into the 
 
 ## What is a type?
 
-Every value you define will have a type. Here are all JavaScript types:
+Every value you define will have a type. Here are all JavaScript types[^spec-types]:
 
 - String
 - Number
@@ -36,7 +36,7 @@ You can imagine that the range of possible values for the String type is quite l
 
 ### Number
 
-There exists two types for numeric values in JavaScript. The most common is Number. It consists of 18,437,736,874,454,810,624 numeric values, half of which are positive, and the other half are negative.
+There exists two types for numeric values in JavaScript. The most common is Number. It consists of 18,437,736,874,454,810,624 numeric values, half of which are positive, and the other half are negative[^number-amount].
 
 ```js
 // Type is Number
@@ -88,13 +88,13 @@ const bool2 = false
 
 ### Symbol
 
-Symbols allow you to create your own custom unique values. You create a new Symbol value with the built-in `Symbol` function.
-
+Symbols allow you to create your own custom unique values. You create a new symbol with the built-in `Symbol` function[^symbol-function].
+^
 ```js
 const mySymbol = Symbol() // Type is Symbol
 ```
 
-You can optionally give your Symbols a description. This is mostly to act as documentation.
+You can optionally give your symbols a description. This is mostly to act as documentation.
 
 ```js
 const mySymbol = Symbol("This is my Symbol")
@@ -145,7 +145,7 @@ console.log(myString) // Hello World
 
 The value of `myString` isn’t repeated 5 times like you might expect. The `repeat` method actually returns a new string because it can’t modify the primitive `“Hello World”` value.
 
-Another quirk of primitives is that they can’t have properties/methods. This might be surprising to learn, after all, the above example uses a *method* called `repeat`. It’s true that `repeat` is a method, but it doesn’t exist on the primitive itself. The method exists on a *wrapper object*.
+Another quirk of primitives is that they can’t have properties/methods. This might be surprising to learn, after all, the above example uses a *method* called `repeat`. It’s true that `repeat` is a method, but it doesn’t exist on the primitive itself. The method exists on a *wrapper object*[^wrapping].
 All primitives except Undefined and Null have wrapper objects. When you attempt to access a property on a primitive, a wrapper object is instantiated which you access instead. The wrapper object for String types is called `String`. `String` is a globally available constructor, which means we can easily simulate the work JavaScript does under the hood. 
 
 ```js
@@ -171,7 +171,7 @@ We set `someField` on a `String` wrapper object that then is immediately discard
 
 I feel it’s necessary to explain some confusing parts of the `typeof` operator.
 
-Using the operator on a value produces a String that gives an indication of the type. Here are the possible values it can return:
+Using the operator on a value produces a string that gives an indication of the type. Here are the possible values it can return:
 
 - `"string"`
 - `"number"`
@@ -182,13 +182,13 @@ Using the operator on a value produces a String that gives an indication of the 
 - `"object"`
 - `"function"`
 
-First, notice how all the types are represented in lower-case. Second, notice is the lack of the Null type. This is what happens if you use the `typeof` operator on `null`:
+First, notice how all the types are represented in lower-case. Second, notice the lack of the Null type. This is what happens if you use the `typeof` operator on `null`:
 
 ```js
 console.log(typeof null) // object
 ```
 
-The type of `null` is wrongly computed to be Object. This is a bug that was introduced in the first implementation of JavaScript. It has never been possible to correct the bug since a lot of programs depend on the false result. If you need a more accurate way to check for objects you have to do the following.
+The type of `null` is wrongly computed to be Object. This is a bug that was introduced in the first implementation of JavaScript[^typeof]. It has never been possible to correct the bug since a lot of programs depend on the false result. If you need a more accurate way to check for objects you have to do the following.
 
 ```js
 if (typeof value === "object" && value !== null) {
@@ -196,7 +196,7 @@ if (typeof value === "object" && value !== null) {
 }
 ```
 
-The last notable thing about the `typeof` operator is how it differentiates between objects and functions. Functions in JavaScript don’t have their own type and instead belong to the Object type. This is because functions are just callable Objects. So it’s reasonable to expect the `typeof` operator to return `“object”` for a function but instead it returns `“function”`.
+The last notable thing about the `typeof` operator is how it differentiates between objects and functions. Functions in JavaScript don’t have their own type and instead belong to the Object type. This is because functions are just callable Objects. So it’s reasonable to expect the `typeof` operator to return `“object”` for a function but it instead returns `“function”`.
 
 ```js
 const func = () => {}
@@ -204,4 +204,14 @@ console.log(typeof func) // function
 ```
 
 
-[^capitalization]: This is the same language that the specification uses https://tc39.es/ecma262/#sec-ecmascript-language-types
+[^capitalization]: This is the same capitalization that the specification uses https://tc39.es/ecma262/#sec-ecmascript-language-types.
+[^spec-types]: Taken, in same order, from here https://tc39.es/ecma262/#sec-ecmascript-language-types.
+[^number-amount]: https://tc39.es/ecma262/#sec-ecmascript-language-types-number-type
+[^symbol-function]: Some people refer to this as a constructor which is not accurate. It's a constructor in a conceptual sense because it lets you create new symbols, but it doesn't have an internal [[Construct]] method meaning it will throw an error when used with `new`.
+[^wrapping]:
+This is how it happens in the specification.
+- A property access https://tc39.es/ecma262/#sec-property-accessors-runtime-semantics-evaluation
+- Calls GetValue https://tc39.es/ecma262/#sec-getvalue
+- Which calls ToObject https://tc39.es/ecma262/#sec-toobject (Creates the wrapper object)
+I recommend reading this great post https://2ality.com/2022/03/properties-of-primitives.html
+[^typeof]: A good read on this https://2ality.com/2013/10/typeof-null.html
