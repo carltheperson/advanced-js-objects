@@ -1,6 +1,6 @@
 # Chapter 1 - Getting our data structures straight
 
-To understand objects it’s essential to understand where objects fit into the JavaScript data structure scene. This chapter will first cover the different JavaScript types then cover which types contain so called *primitives*. It will also attempt to clear some confusion regarding the `typeof` operator.
+To understand objects it’s essential to understand where objects fit into the JavaScript data structure scene. This chapter firsts cover the different JavaScript types then cover which types contain so called *primitives*. I will also attempt to clear some confusion regarding the `typeof` operator.
 
 ## What is a type?
 
@@ -17,9 +17,9 @@ Every value you define will have a type. Here are all JavaScript types:
 
 Usually, you don't have to think too much about types in JavaScript. That's because types are inferred automatically from values. But being able to categorize your values into types is still quite useful. As you'll see, different types have very different capabilities.
 
-The main thing to know about types is that they group values. As you'll see, some types contain more values than others, and some contain only one value. But it's important to always think of them as sets of values. All the types listed above will be further explained below.
+The main thing to know about types is that they group values. Some types contain more values than others, and some contain only one value. But it's important to always think of them as sets of values. All the types listed above will be further explained below.
 
-> 💡 This book will describe the name of a types using capitalization e.g. "Object" or "Number". However, when the type isn't explicitly addressed, groups of values will be described in lower-case e.g. "object(s)" or "number(s)".
+> 💡 This book will describe the name of a types using capitalization e.g. "Object" or "Number" [^capitalization]. However, when the type isn't explicitly addressed, groups of values will be described in lower-case e.g. "object(s)" or "number(s)".
 >
 
 ### String
@@ -204,3 +204,4 @@ console.log(typeof func) // function
 ```
 
 
+[^capitalization]: This is the same language that the specification uses https://tc39.es/ecma262/#sec-ecmascript-language-types

@@ -12,7 +12,7 @@ In the above example we have an object called `obj`. It has a property with the 
 
 ### Property key types
 
-A property key can only be a string or a symbol. It is, however, possible to define a property key with something that is not a String or Symbol, but the value will be automatically converted to a string. Below, we create an object containing a numeric key with the value `100`. When we retrieve the keys for the object, the type of our key has changed to String, giving us `“100”`.
+A property key can only be of type String or Symbol. It is possible to *define* a property using a key that is neither of those types, but this will internally convert the key to a string. Below, we define a property key with the number `100`. When we retrieve the keys for the object, the type of our key has changed to String, giving us `“100”`.
 
 ```js
 const obj = { 100: true }
@@ -44,7 +44,7 @@ console.log(obj["100"]) // b
 
 ### Symbol property keys
 
-As mentioned before, Symbols are also valid Object keys. This also means they don’t get converted to strings when used as property keys. 
+As mentioned before, symbols are also valid Object keys. This means that they don’t get converted into strings when used as property keys. 
 
 ```js
 const key1 = "Key 1";
@@ -59,7 +59,7 @@ console.log(obj[key1]) // Value 1
 console.log(obj[key2]) // Value 2
 ```
 
-One advantage of using Symbols as keys is that they are guaranteed to be unique. This is useful if you want to prevent properties from being overwritten by code consuming your Objects. Also, symbols aren’t returned by the conventional methods used to retrieve property keys like `Object.keys` and `Object.getOwnPropertyNames`.
+One advantage of using symbols as keys is that they are guaranteed to be unique. This is useful if you want to prevent properties from being overwritten by code consuming your objects. Also, symbols aren’t returned by the conventional methods used to retrieve property keys like `Object.keys` and `Object.getOwnPropertyNames`.
 
 ```js
 const obj = { [Symbol("Key 1")]: true, "Key 2": true }
