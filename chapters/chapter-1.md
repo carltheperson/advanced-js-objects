@@ -208,9 +208,10 @@ console.log(typeof func) // function
 [^spec-types]: Taken, in same order, from here https://tc39.es/ecma262/#sec-ecmascript-language-types.
 [^number-amount]: https://tc39.es/ecma262/#sec-ecmascript-language-types-number-type
 [^symbol-function]: Some people refer to this as a constructor which is not accurate. It's a constructor in a conceptual sense because it lets you create new symbols, but it doesn't have an internal [[Construct]] method meaning it will throw an error when used with `new`.
-[^wrapping]: This is how it happens in the specification.
+[^wrapping]: This is how it happens in the specification:
 	- A property access https://tc39.es/ecma262/#sec-property-accessors-runtime-semantics-evaluation
 	- Calls GetValue https://tc39.es/ecma262/#sec-getvalue
 	- Which calls ToObject https://tc39.es/ecma262/#sec-toobject (Creates the wrapper object)
+	
 	I recommend reading this great post https://2ality.com/2022/03/properties-of-primitives.html
 [^typeof]: A good read on this https://2ality.com/2013/10/typeof-null.html
