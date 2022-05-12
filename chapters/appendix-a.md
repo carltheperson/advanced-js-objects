@@ -16,6 +16,8 @@ Symbols can even be used to expose the internal logic of JavaScript. There is a 
 - `Symbol.toStringTag`
 - `Symbol.unscopables`
 
+### Well-known symbol example
+
 An interesting well-known Symbol is `Symbol.toStringTag`. It is used to give a default description of an object. It is used by `Object.prototype.toString` which is the method called when you execute `.toString()` on your object literal.
 By setting a custom value on the `Symbol.toStringTag` property, we can trick `Object.prototype.toString` into labeling our object whatever we want.
 
@@ -29,5 +31,3 @@ obj[Symbol.toStringTag] = "Hi Mom!"
 console.log(obj.toString()) // [object Hi Mom!]
 ```
  
-
-- [ ]  Cover hasInstance
