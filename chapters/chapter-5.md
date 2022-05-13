@@ -18,7 +18,7 @@ console.log(obj.toString === Object.prototype.toString) // true
 
 ## The Prototype chain
 
-All objects, expect for a few exotic ones, have an internal property called [[Prototype]]. The value of this property is either `null` or a reference to another object. The value of this property is refereed to as the *prototype* of the object. You can’t directly access it but you can retrieve it using `Object.getPrototypeOf` or `Reflect.getPrototypeOf`.
+All objects have an internal property called [[Prototype]]. The value of this property is either `null` or a reference to another object. The value of this internal property is refereed to as the *prototype* of the object. You can’t directly access it but you can retrieve it using `Object.getPrototypeOf` or `Reflect.getPrototypeOf`.
 
 ```js
 const obj = {}
@@ -28,7 +28,7 @@ console.log(typeof objProto) // object
 
 In the above example, we define an empty object literal. We then use `Reflect.getPrototypeOf` which gives us the prototype of that object. As we can see, the prototype of our object is also an object. This might seem a bit strange; we never gave `obj` a prototype. Object literals have a default prototype. More on that later. 
 
-We now know that objects can have an internal reference to another object known as their prototype. This becomes more interesting when you realize that since prototypes are also objects, prototypes can have their *own* prototype. This leads to something called the *prototype chain.* It’s the linking between potentially multiple Objects through prototypes.
+We now know that objects can have an internal reference to another object known as their prototype. This becomes more interesting when you realize that since prototypes are also objects, prototypes can have their *own* prototype. This leads to something called the *prototype chain.* It’s the linking between potentially multiple objects through prototypes.
 
 ![Prototype chain](../images/prototype-chain.png)
 
@@ -40,7 +40,7 @@ Above, we can see a prototype chain starting with Object A. Object A has the pro
 
 ### Inheritance
 
-The prototype chain isn’t just used to link objects together, it’s used for inheritance. Specifically, if an object lacks a property, it can inherit it from its prototype chain. To understand how this works, it’s important to understand what happens when you try to access a property. It goes as follows:
+The prototype chain isn’t just used to link objects together, it’s used for inheritance. Specifically, if an object lacks a property, it can inherit it from its prototype chain. To understand how this works, it’s important to understand what happens when you try to access a property. It goes as follows[^get]:
 
 1. If the property exists on the object, **return** it.
 2. Else, retrieve the object’s prototype. If that’s `null` **return** `undefined`.
@@ -52,7 +52,7 @@ Consider these three objects. They each have a unique property. How many of thes
 
 ![Prototype chain unique properties](../images/prototype-unique.png)
 
-The answer is all of them. Property X exists directly on Object A and Property- Y and Z exist in its prototype chain.
+The answer is all of them. Property X exists directly on Object A and Property Y and Z exist in its prototype chain.
 
 What if the same property key exists multiple places in a prototype chain? Which property value will be returned when Property X is accessed on Object A below?
 
@@ -65,15 +65,17 @@ The answer is Property X of Object B. It comes first in the prototype chain. Whe
 
 ## Standard prototypes
 
-Some objects are used as the default prototype for the objects you create. It’s useful to understand these, so you know which properties your objects inherit. Two important standard prototypes will be covered below.
+Some objects are used as the default prototype for the objects you create. It’s useful to understand these so you know which properties your objects inherit. Two important standard prototypes will be covered below.
 
 #### Object.prototype
 
-If you create an object literal, the prototype will be an object called `Object.prototype`. It isn’t just specific to object literals however. It is no doubt the most important object in the context of prototypes. It is present in the prototype chain of practically every object in JavaScript. It’s found at the end of the chain right before `null`.
+If you create an object literal, the prototype will be an object called `Object.prototype`. It isn’t just specific to object literals however. It is no doubt the most important object in the context of prototypes. It is present in the prototype chain of practically every object in JavaScript. It’s usually found at the end of the chain right before `null`.
 
 For object literals, it’s the first and only prototype.
 
-```jsx
+Below, the properties of `Object.prototype` are logged.
+
+```js
 const obj = {}
 const proto = Reflect.getPrototypeOf(obj)
 console.log(proto === Object.prototype) // true
@@ -96,7 +98,7 @@ console.log(Reflect.ownKeys(proto))
 
 #### Function.prototype
 
-The prototype of the functions you create will be `Function.prototype`. It contains useful methods like `apply`, `bind`, and `call` which will be covered later.
+The prototype of the functions you create will be `Function.prototype`. It contains useful methods like `apply`, `bind`, and `call` which will be covered later in [Chapter 6](./chapter-6.md#traditional-function-using-bind-call-or-apply).
 
 ```js
 function func() {}
@@ -121,7 +123,7 @@ The prototype of `Function.prototype` is `Object.prototype`. Notice how both Obj
 
 ![Prototype chain of func](../images/prototype-function.png)
 
-## The \_\_proto\_\_ property
+## The .\_\_proto\_\_ property
 
 If you open your browser console and access a property called `__proto__` on an object, you will receive its prototype. 
 
@@ -131,13 +133,13 @@ const objProto = Reflect.getPrototypeOf(obj)
 console.log(objProto === obj.__proto__) // true
 ```
 
-Because of this, many people assume that the prototype of an object is stored *on* the `__proto__` property. This is wrong. The prototype of an object is stored internally, and `__proto__` is just an accessor property that exposes it.
+Because of this, many people assume that the prototype of an object is stored *on* the `.__proto__` property. This is wrong. The prototype of an object is stored internally, and `.__proto__` is just an accessor property that exposes it.
 
-It is not recommended that you use `__proto__` to access or set prototypes. It’s only guaranteed to be supported in browsers, and even then is only kept for compatibility purposes. Deno is an example of a modern JavaScript runtime that doesn’t support `__proto__`.
+It is not recommended that you use `.__proto__` to access or set prototypes. It’s only guaranteed to be supported in browsers, and even then is only kept for compatibility purposes[^proto]. Deno is an example of a modern JavaScript runtime that doesn’t support `.__proto__`.
 
 ## Setting prototypes on objects
 
-There are two ways to set a prototype on an Object. The first is with `Object.create`. This will create a new empty object with a prototype you supply as an argument.
+There are two ways to set a prototype on an object. The first is with `Object.create`. This will create a new empty object with a prototype you supply as an argument.
 
 ```js
 const proto = { canYouAccessMe: true }
@@ -156,3 +158,6 @@ console.log(obj.canYouAccessMe) // true
 
 > ⚠️ Changing the prototype of an existing object can be a performance issue and should generally be avoided.
 >
+
+[^get]: https://tc39.es/ecma262/#sec-ordinaryget
+[^proto]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto
