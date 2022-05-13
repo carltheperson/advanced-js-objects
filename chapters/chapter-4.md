@@ -1,11 +1,11 @@
 # Chapter 4 - Internal Object behavior
 
 
-Peeking into the internals of objects can be a good way to understand how they work. One useful concept to understand is *internal methods*. This chapter covers the different internal methods of different objects, and how they behave. It also covers how knowledge about these internal methods can be used in your JavaScript programs.
+Peeking into the internals of objects can be a good way to understand how they work. One useful concept to understand is *internal methods*. This chapter covers the different internal methods of different objects and how they behave. It also covers how knowledge about these internal methods can be used in your JavaScript programs.
 
 ## Internal methods basics
 
-Every JavaScript object has internal methods, although some have more than others. These methods get called when you have pretty much any interaction with objects. The names of internal methods are labelled by enclosing brackets ([ ]), e.g. [[HasProperty]]. This is to distinguish them from regular object methods.
+Every JavaScript object has internal methods, although some have more than others. These methods get called when you have pretty much any interaction with objects. The names of internal methods are labelled by double enclosing brackets ([[ ]]) e.g. [[HasProperty]]. This is to distinguish them from regular object methods.
 
 You can’t actually call an internal method in your JavaScript program. This is because they exist outside the execution context of your code. They are called by your JavaScript *engine*, not your code. Still, it’s helpful to understand *when* they are called by the engine.
 
@@ -13,7 +13,7 @@ You can’t actually call an internal method in your JavaScript program. This is
 
 Some internal methods exist on every single object. These are called *essential internal methods*. 
 
-Below is a table with all essential internal methods. The arguments and return types are written with a notation that resembles an arrow function. An arrow (`=>`) separates the arguments from the return type. The pipe symbol (`|`) is used when a value can be multiple possible types. Square brackets (`[]`) after a type means an array of that type.
+Below is a table with all essential internal methods[^essential-table]. The arguments and return types are written with a notation that resembles an arrow function. An arrow (`=>`) separates the arguments from the return type. The pipe symbol (`|`) is used when a value can be multiple possible types. Square brackets (`[]`) after a type means an array of that type.
 
 | Internal Method | Arguments- and return type | Description |
 | --- | --- | --- |
@@ -31,7 +31,7 @@ Below is a table with all essential internal methods. The arguments and return t
 
 As you can see, some types are different than the ones we defined in chapter one. This is because they are internal and separate from the language types you use in your code. All of the internal types can be converted into language types and vise versa. The new internal types introduced above are:
 
-- `Key`. A property key. Is converted to/from a String or Symbol.
+- `Key`. A property key. Is converted to/from a string or symbol.
 - `Any`. Can be any language type. All instances of this type above represent property values.
 - `Descriptor`. The descriptor of a property. Is converted to/from an Object.
 - `Receiver`. This argument is always optional. If specified, it will become the `this` of the function. If not, `this` will be the object the method is called on. It will be covered more later.
@@ -59,7 +59,7 @@ As mentioned before, you can’t call internal methods because, well, they’re 
 
 `Reflect` provides minimal wrappers over the internal methods. Meaning, we can call the internal methods *through* `Reflect`. This effectively bridges the gab between the internal methods and our code.
 
-You will notice that `Reflect` has a lot of similar methods as `Object`. `Object` is more utility focused and doesn’t cover all the internal methods. It also, unlike `Reflect`, has methods than don’t correspond directly with internal methods.
+You will notice that `Reflect` has a lot of similar methods as `Object`. `Object` is more utility focused and doesn’t cover all the internal methods. It also, unlike `Reflect`, has methods that don’t correspond directly to internal methods.
 
 Below, you will see a table with all the internal methods and their corresponding `Reflect` method. The `Object` method is also listed if it exists.
 
@@ -79,9 +79,9 @@ Below, you will see a table with all the internal methods and their correspondin
 | [[Call]] | `Reflect.apply` |  |
 | [[Construct]] | `Reflect.construct` |  |
 
-All of the `Reflect` methods take in an object as their first argument. This is the object that the internal method should be called on. The other arguments will match the ones the internal method has. An example is the internal method [[HasProperty]] which takes in a single `Key` argument. The corresponding `Reflect.has` method takes in *two* arguments. The first one being the object that the [[HasProperty]] should be called on. The second argument being the actual argument to [[HasProperty]].
+All of the `Reflect` methods take in an object as their first argument. This is the object that the internal method should be called on. The other arguments will match the ones the internal method has. An example is the internal method [[HasProperty]] which takes in a single `Key` argument. The corresponding `Reflect.has` method takes in *two* arguments. The first one being the object that the [[HasProperty]] should be called on. The second argument being the actual argument to [[HasProperty]], the `Key`.
 
-```jsx
+```js
 const obj = { a: "A" }
 console.log(Reflect.has(obj, "a")) // true
 ```
@@ -90,7 +90,7 @@ console.log(Reflect.has(obj, "a")) // true
 
 In JavaScript, not all objects are created equal. Most objects are what’s called *Ordinary Objects*. These include the ones you create yourself. Other Objects are what’s called *exotic objects*. Exotic objects have different internal behavior than ordinary Objects. Specifically, they have a different implementation of some of their internal methods. This allows them to have special internal functionality that isn’t available to ordinary objects.
 
-Here are all the exotic objects:
+Here are all the exotic objects[^exotic-objects]:
 
 - Bound function objects
 - Array objects
@@ -101,11 +101,11 @@ Here are all the exotic objects:
 - Immutable prototype objects
 - Proxy objects
 
-Two of these will be explained further below; array- and proxy objects.
+Two of these will be explained further below: array and proxy objects.
 
-### Arrays (exotic Objects)
+### Arrays (exotic objects)
 
-Arrays are exotic objects that have a different [[DefineOwnProperty]] method than ordinary objects. The [[DefineOwnProperty]] method is used internally to define properties. For ordinary objects this method is quite straight forward; a property is defined with a key, value, and descriptor. The [[DefineOwnProperty]] of arrays works the same but has special behavior for properties in two special cases:
+Arrays are exotic objects that have a different [[DefineOwnProperty]] method than ordinary objects[^array]. The [[DefineOwnProperty]] method is used internally to define properties. For ordinary objects this method is quite straight forward, a property is defined with a key, value, and descriptor. The [[DefineOwnProperty]] of arrays works the same but has special behavior for properties in two special cases:
 
 - Case 1: The key is called `“length”`
 - Case 2: The key is a valid array index. To be this, the key needs to fulfill two criteria:
@@ -118,7 +118,7 @@ Arrays are exotic objects that have a different [[DefineOwnProperty]] method tha
 >💡 It might sound strange to learn that valid array indexes has to be a strings. This is because we normally use numbers to access/define array elements. It might be helpful to think of two different kinds of array indexes:
 > - Internal array indexes which has to be strings.
 > - External array indexes which can be both strings and numbers.
-> The reason external array indexes can be both strings and numbers, is that numbers are converted to strings if used as property keys.
+> The reason external array indexes can be both strings and numbers, is that numbers are converted to strings if used as property keys. This was covered in [Chapter 2](./chapter-2.md#property-key-types).
 > 
 
 #### Special case 1: The key is called “length”
@@ -147,9 +147,9 @@ Your browser might explain the difference between the number of elements and the
 #### Special case 2: The key is a valid array index
 
 If you define a property with a valid array index key, JavaScript will convert the key to a number and compare it to the value of its `length` property.
-If the numeric value of the key is greater then or equal to (`>=`) the value of `length`, it will redefine `length`. The value of `length` will be set to the numeric value of the key `+ 1`.
+If the numeric value of the key is greater than or equal to (`>=`) the value of `length`, it will re-define `length`. The value of `length` will be set to the numeric value of the key `+ 1`.
 
-```jsx
+```js
 const arr = ["a", "b"]
 console.log(arr.length) // 2
 
@@ -161,7 +161,7 @@ In the above example, we start be defining an array with a length of 2. We then 
 
 The length will also be re-defined if the numeric value is greater than the length. We can see this below where we define a property using the key `“5”` on an array with a length of 2. The length changes to `5 + 1 = 6`.
 
-```jsx
+```js
 const arr = ["a", "b"]
 console.log(arr.length) // 2
 
@@ -171,7 +171,7 @@ console.log(arr.length) // 6
 
 The length is now 6 but the amount of elements is still 3. Because of this, your browser will likely show some “empty items” inside the array. Remember, these aren’t real elements.
 
-```jsx
+```js
 console.log(arr) // [ "a", "b", <3 empty items>, "c" ]
 ```
 
@@ -189,13 +189,13 @@ console.log(arr.length) // 3
 
 ### Proxies (exotic objects)
 
-Proxies are the only exotic objects that have a different implementation of every single essential internal method. When one of its internal methods are called, the proxy can call a function of *your* choosing. You can essentially set up listeners that run custom code when internal methods are called. This is really powerful and allows you to create truly flexible objects.
+Proxies are the only exotic objects that have a different implementation of every single essential internal method[^proxy]. When one of its internal methods are called, the proxy can call a function of *your* choosing. You can essentially set up listeners that run custom code when internal methods are called. This is really powerful and allows you to create truly flexible objects.
 
 #### Proxy handlers
 
-When you initialize a proxy you give it a *proxy handler,* which is an object. You attach methods to this object which will be called by the proxy. A method on a proxy handler is called a *trap*. A trap is specific to a certain internal method.
+When you initialize a proxy you give it a *proxy handler* which is an object. You attach methods to this object which will be called by the proxy. A method on a proxy handler is called a *trap*. A trap is specific to a certain internal method.
 
-Below you will see a proxy handler that implements every possible trap. This is not required. You only need to define the traps you need. The traps have a comment indicating which type should be returned from them.
+Below you will see a proxy handler that implements every possible trap[^proxy-handler]. This is not required. You only need to define the traps you need. The traps have a comment indicating which type should be returned from them.
 
 ```jsx
 const proxyHandler = {
@@ -217,7 +217,7 @@ const proxyHandler = {
 
 #### Trap name
 
-The name of the trap is the same as the internal method’s corresponding `Reflect` method. An example could be the internal method [[HasProperty]], which has a corresponding `Reflect` method called `has`. This means that the trap for [[HasProperty]] is also called `has`.
+The name of the trap is the same as the internal method’s corresponding `Reflect` method. An example could be the internal method [[HasProperty]] which has a corresponding `Reflect` method called `has`. This means that the trap for [[HasProperty]] is also called `has`.
 
 #### Trap arguments
 
@@ -225,11 +225,11 @@ The arguments passed to a trap will also match the arguments passed to the corre
 
 #### Trap return type
 
-The expected return type of a trap will also match that of the corresponding `Reflect` method. The `Reflect.has` method returns a Boolean, which means the trap called `has` should also return a Boolean.
+The expected return type of a trap will also match that of the corresponding `Reflect` method. The `Reflect.has` method returns a boolean which means that the trap called `has` should also return a boolean.
 
 #### Proxy targets
 
-Initializing a proxy also requires another Object called the *target*. This will serve as a fallback. If an internal method isn’t implemented in your proxy handler, it will call the internal method on the target instead. The target is also passed to every trap as the first argument.
+Initializing a proxy also requires another object called the *target*. This will serve as a fallback. If an internal method isn’t implemented in your proxy handler, it will call the internal method on the target instead. The target is also passed to every trap as the first argument.
 
 The below diagram shows a proxy that has traps for 3 internal methods. As you can see, the internal methods without traps default to the target.
 
@@ -239,17 +239,17 @@ The below diagram shows a proxy that has traps for 3 internal methods. As you ca
 
 You create a new proxy object with the globally available `Proxy` constructor. The first argument is the target and the second is the proxy handler.
 
-```jsx
+```js
 const proxyObj = new Proxy(target, proxyHandler)
 ```
 
-The result is an exotic proxy object which will call your traps when its own internal methods are called. A few useful internal methods to trap are covered below.
+The result is the exotic proxy object. A few useful internal methods to trap are covered below.
 
 #### Trapping [[Get]]
 
-This will call your trap for every attempt to access property values on your Object. The value that you return from your trap will act as the property value. The below Proxy object will return a custom string for every property value requested.
+This will call your trap for every attempt to access property values on your object. The value that you return from your trap will act as the property value. The below proxy object will return a custom string for every property value requested.
 
-```jsx
+```js
 const proxyObj = new Proxy({}, {
     get: (target, key, receiver) => {
       return `Value for key ${key}`
@@ -268,7 +268,7 @@ console.log(proxyObj.helloWorld) // Value for key helloWorld
 
 This will call your trap every time an attempt is made to assign a value to a property.  
 
-```jsx
+```js
 const proxyObj = new Proxy({}, {
     set: (target, key, value, receiver) => {
       console.log("You want to set", value, "on", key)
@@ -281,20 +281,20 @@ proxyObj.abc = 1 // You want to set 1 on abc
 proxyObj.dfg = 2 // You want to set 2 on dfg
 ```
 
-It’s important to return `true` from this trap. Otherwise, the assignment will be considered failed and a `TypeError` will be thrown in Strict-mode.
+It’s important to return `true` from this trap. Otherwise, the assignment will be considered failed and a `TypeError` will be thrown in strict mode.
 
-> ⚠️ Your [[Set]] trap won’t trigger if a property is defined with a descriptor. Although, it is possible to trap [[DefineOwnProperty]] which will catch that.
+> ⚠️ Your [[Set]] trap won’t trigger if a property is defined with a descriptor. Although, it is possible to trap [[DefineOwnProperty]] which will trigger when properties are defined with descriptors.
 >
 
 #### receiver in [[Get]] and [[Set]] traps
 
-You may have noticed how the [[Get]] and [[Set]] traps take in an argument called `receiver`. It could be important in certain cases. You can read about it in [Appendix B](./appendix-b.md). I recommend that you finish [chapter 5](./chapter-5.md) first.
+You may have noticed how the [[Get]] and [[Set]] traps take in an argument called `receiver`. It can be important in certain cases. You can read about it in [Appendix C](./appendix-c.md). I recommend that you finish [chapter 5](./chapter-5.md) first.
 
 #### Trapping [[OwnPropertyKeys]]
 
 This allows you to return a custom set of property keys for the object.
 
-```jsx
+```js
 const proxyObj = new Proxy({}, {
     ownKeys: (target) => ["a", "b", "c"]
   }
@@ -304,11 +304,13 @@ console.log(Reflect.ownKeys(proxyObj)) // ["a", "b", "c"]
 console.log(Object.keys(proxyObj)) // []
 ```
 
-As you can see, `Reflect.ownKeys` return the keys from our trap but `Object.keys` does not. The reason for this, is that `Object.keys` only returns keys of enumerable properties. The keys we return from our proxy trap don’t actually exist, meaning they don’t have a descriptor with an `enumerable` attribute.
+As you can see, `Reflect.ownKeys` returns the keys from our trap but `Object.keys` does not. The reason for this, is that `Object.keys` only returns keys of enumerable properties. The keys we return from our proxy trap don’t actually exist, meaning they don’t have a descriptor with an `enumerable` attribute.
 
 #### Trapping [[GetOwnPropertyDescriptor]]
 
-This will allow you to return custom descriptors for any call to [[GetOwnPropertyDescriptor]]. Using this, we can fix the example above by always returning a descriptor specifying that the property is enumerable.
+This will allow you to return custom descriptors for any call to [[GetOwnPropertyDescriptor]].
+
+Using this, we can fix the above example by always returning a descriptor specifying that the property is enumerable.
 
 ```jsx
 const proxyObj = new Proxy({}, {
@@ -329,10 +331,15 @@ This will also allow our “fake” property keys to be used with the spread ope
 
 #### Trap ideas
 
-The traps showed so far have been pretty simple. Here are some more interesting ideas for traps. There are code examples for these in appendix X.
+The traps showed so far have been pretty simple. Here are some more interesting ideas for traps.
 
-- Validate data
-- Restricting access to certain properties
-- Limit property values to be a certain type
-- Listen and change something like DOM
-- Just logging. Using Reflect.
+- Validate property data before assigning it.
+- Restrict access to certain properties.
+- Limit property values to be of a certain type.
+- Automatically update DOM when object changes. 
+
+[^essential-table]: This is a modified version of this table https://tc39.es/ecma262/#table-object-property-attributes
+[^exotic-objects]: https://tc39.es/ecma262/#table-object-property-attributes
+[^array]: https://tc39.es/ecma262/#sec-array-exotic-objects-defineownproperty-p-desc
+[^proxy]: https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots
+[^proxy-handler]: https://tc39.es/ecma262/#table-proxy-handler-methods
