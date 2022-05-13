@@ -37,7 +37,7 @@ console.log(obj["true"]) // a
 console.log(obj["100"]) // b
 ```
 
->This behavior becomes very clear with arrays. Arrays are objects like object literals, meaning their keys are strings. Array object keys are usually referred to as *indexes*.
+>💡 This behavior becomes very clear with arrays. Arrays are objects like object literals, meaning their keys are strings. Array object keys are usually referred to as *indexes*.
 >```js
 >const arr = ["a", "b", "c"]
 >console.log(Object.keys(arr)) // [ "0", "1", "2" ]
