@@ -35,7 +35,7 @@ Object.defineProperty(obj, "myKey", {
 console.log(obj) // { myKey: "Hello!" }
 ```
 
-> 💡 Descriptors are managed by the internals of JavaScript. They are not actually real objects, but are instead kept in a more primitive internal structure[descriptor-type^]. However, when we interact with descriptors they are converted to objects. This gives them a familiar form. For sake of simplicity, assume that descriptors are objects. 
+> 💡 Descriptors are managed by the internals of JavaScript. They are not actually real objects, but are instead kept in a more primitive internal structure[^descriptor-type]. However, when we interact with descriptors they are converted to objects. This gives them a familiar form. For sake of simplicity, assume that descriptors are objects. 
 >
 > This also explains why descriptor members are called *attributes* and not properties. They are represented to us as object properties but aren’t actually kept as such.
 > 
@@ -436,5 +436,5 @@ Below you will find a table with the three methods covered above. It allows you 
 As you can see, the three methods form a sort of hierarchy with `Object.preventExtensions` being the least restrictive and `Object.freeze` being the most restrictive.
 
 
-[descriptor-type^]: It's a Record Specification Type https://tc39.es/ecma262/#sec-property-descriptor-specification-type
-[^descriptor-table]: https://tc39.es/ecma262/#table-object-property-attributes
+[^descriptor-type]: It's a Record Specification Type https://tc39.es/ecma262/#sec-property-descriptor-specification-type
+[^descriptor-table]: https://tc39.es/ecma262/#table-object-property-attribute^
