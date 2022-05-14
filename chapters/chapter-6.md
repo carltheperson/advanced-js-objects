@@ -2,7 +2,7 @@
 
 The `this` keyword can provide useful context for your code. 
 
-```jsx
+```js
 const obj = {
   canYouSeeMe: true,
   func: function () {
@@ -19,10 +19,10 @@ Above, we define an object with two properties. The first property is called `ca
 | How function is being called | Traditional function `this` |   Arrow function `this` |
 | --- | --- | --- |
 | On its own |                    ? |                      ? |
-| On an Object |                    ? |                      ? |
+| On an object |                    ? |                      ? |
 | Using `bind`, `call`, or `apply` |                    ? |                      ? |
 
->💡 Some of these cases have different outcomes depending if they’re in Strict-mode or not. Make sure you understand Strict-mode before you proceed.
+>💡 Some of these cases have different outcomes depending if they’re in strict mode or not. Make sure you understand Strict-mode before you proceed. You can read about strict mode in [Appendix B](./appendix-b.md).
 >
 
 # globalThis
@@ -45,7 +45,9 @@ Before diving in, it’s important to understand the `globalThis` keyword. In ce
 
 # Traditional function on its own
 
-If you run a traditional function on its own, the value of its `this` will depend if the function is in Strict-mode or not. If in Strict-mode, `this` will be `undefined`. If not in Strict-mode, `this` will be `globalThis`. 
+If you run a traditional function on its own, the value of its `this` will depend if the function is in strict mode or not.
+
+If in strict mode, `this` will be `undefined`. If not in strict mode, `this` will be `globalThis`. 
 
 ```js
 "use strict"
@@ -114,7 +116,7 @@ There are three methods that let you manipulate the `this` inside functions. The
 
 ### bind
 
-`bind` creates a new function with a `this` that you specify. The function it creates will have your `this` no the context. 
+`bind` creates a new function with a `this` that you specify. The function it creates will have your `this` no matter the context. 
 
 ```js
 function f1() {
@@ -163,7 +165,9 @@ console.log(person) // { x: 5, y: 10 }
 >💡 An arrow function called on its own or an on object will have the same `this`.
 >
 
-Arrow functions don’t have their own `this` binding. Instead, the `this` inside arrow functions is based on the scope they are defined within. If the arrow function is defined inside a traditional function, it will have the same `this` as the traditional function. If it’s not defined inside a traditional function, its `this` will be the `this` of the global scope.
+Arrow functions don’t have their own `this` binding. Instead, the `this` inside arrow functions is based on the scope they are defined within.
+
+If an arrow function is defined inside a traditional function, it will have the same `this` as the traditional function. If it’s not defined inside a traditional function, its `this` will be the `this` of the global scope.
 
 It’s important to remember that the `this` is based on where the arrow function is *defined* not where it’s called. This turns out to be a useful feature when it comes to callbacks. Callbacks are functions that you supply to other functions as arguments. Doing this with traditional functions means you often loose control of `this`. That’s because you usually don’t control *how* the callback is called. Luckily, arrow functions don’t care how they’re called, only where they’re defined.
 
