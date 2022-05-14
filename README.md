@@ -2,7 +2,7 @@
 <p align="center">An e-book entirely about JavaScript objects</p>
 
 <div align="center">
-		<img src="images/cover-small.gif" alt="Book image">
+		<img src="images/cover-big.gif" width="390px" height="443px" alt="Book image">
 </div>
 
 
