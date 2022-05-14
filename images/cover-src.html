@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Document</title>
+</head>
+<body>
+	
+	
+	<div class="book-container">
+		<div class="book">
+			 <img src="simple-cover.png" alt="">
+		</div>
+	</div>
+		<style>
+		.book-container {
+			width: 200px;
+			height: 300px;
+			margin: 200px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			perspective: 400px;
+		}
+	
+		.book {
+			transform: rotateY(0deg);
+			position: relative;
+			transform-style: preserve-3d;
+			width: 200px;
+			height: 300px;
+			animation: 12s ease-in-out 0s infinite initAnimation;
+		}
+	
+		.book:hover {
+			transform: rotate(0deg);
+		}
+	
+		@keyframes initAnimation {
+			0% {
+				transform: rotateY(0deg);
+			}
+			50% {
+				transform: rotateY(-30deg) rotateX(2deg);
+			}
+			100% {
+				transform: rotateY(0deg) rotateX(0eg);
+			}
+		}
+	
+		.book > :first-child {
+			position: absolute;
+			background: #0d47a1aa;
+			width: 200px;
+			height: 300px;
+			border-top-right-radius: 3px;
+			border-bottom-right-radius: 3px;
+			box-shadow: -5px 0 30px 5px rgba(199, 199, 199);
+		}
+	
+		.book::before {
+			content: ' ';
+			background: #fff;
+			height: calc(300px - 2 * 3px);
+			width: 50px;
+			top: 3px;
+			position: absolute;
+			transform: translateX(calc(200px - 50px / 2 - 3px)) rotateY(90deg) translateX(calc(50px / 2))
+		}
+	
+		.book::after {
+			content: ' ';
+			position: absolute;
+			left: 0;
+			width: 200px;
+			height: 300px;
+			border-top-right-radius: 3px;
+			border-bottom-right-radius: 3px;
+			background: #01060f;
+			transform: translateZ(-50px);
+			box-shadow: -5px 0 30px 5px rgba(199, 199, 199);
+		}
+		</style>
+	</div>
+</body>
+</html>
