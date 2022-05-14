@@ -218,3 +218,7 @@ console.log(func.bind(customThis)() === customThis) // false
 console.log(func.call(customThis) === customThis) // false
 console.log(func.apply(customThis) === customThis) // false
 ```
+
+<hr/>
+
+Next chapter: [Chapter 7 - Constructors ➡️](./chapter-7.md)

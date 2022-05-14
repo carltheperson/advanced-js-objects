@@ -1,4 +1,4 @@
-# Chapter 1 - Getting our data structures straight
+# Chapter 1 - Getting Our Data Structures Straight
 
 To understand objects it’s essential to understand where objects fit into the JavaScript data structure scene. This chapter firsts cover the different JavaScript types then cover which types contain so called *primitives*. I will also attempt to clear some confusion regarding the `typeof` operator.
 
@@ -203,6 +203,9 @@ const func = () => {}
 console.log(typeof func) // function
 ```
 
+<hr/>
+
+Next chapter: [Chapter 2 - Object Basics ➡️](./chapter-2.md)
 
 [^capitalization]: This is the same capitalization that the specification uses https://tc39.es/ecma262/#sec-ecmascript-language-types.
 [^spec-types]: Taken, in same order, from here https://tc39.es/ecma262/#sec-ecmascript-language-types.

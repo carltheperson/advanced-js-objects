@@ -1,4 +1,4 @@
-# Chapter 4 - Internal Object behavior
+# Chapter 4 - Internal Object Behavior
 
 
 Peeking into the internals of objects can be a good way to understand how they work. One useful concept to understand is *internal methods*. This chapter covers the different internal methods of different objects and how they behave. It also covers how knowledge about these internal methods can be used in your JavaScript programs.
@@ -337,6 +337,10 @@ The traps showed so far have been pretty simple. Here are some more interesting 
 - Restrict access to certain properties.
 - Limit property values to be of a certain type.
 - Automatically update DOM when object changes. 
+
+<hr/>
+
+Next chapter: [Chapter 5 - Prototypes ➡️](./chapter-5.md)
 
 [^essential-table]: This is a modified version of this table https://tc39.es/ecma262/#table-object-property-attributes
 [^exotic-objects]: https://tc39.es/ecma262/#table-object-property-attributes

@@ -159,5 +159,9 @@ console.log(obj.canYouAccessMe) // true
 > ⚠️ Changing the prototype of an existing object can be a performance issue and should generally be avoided.
 >
 
+<hr/>
+
+Next chapter: [Chapter 6 - this ➡️](./chapter-6.md)
+
 [^get]: https://tc39.es/ecma262/#sec-ordinaryget
 [^proto]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto

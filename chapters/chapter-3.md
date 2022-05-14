@@ -1,4 +1,4 @@
-# Chapter 3 - Property descriptors and object restrictions
+# Chapter 3 - Property Descriptors and Object Restrictions
 
 This chapter will cover ways that you can restrict or alter the functionality of objects. This can be done in two ways. The first is using *descriptors* which effect individual properties. The second is using one of the three methods that restrict entire objects. Both of these ways will be covered below.
 
@@ -434,6 +434,10 @@ Below you will find a table with the three methods covered above. It allows you 
 | `Object.freeze` |      ❌ |      ❌  |      ❌  |      ✓ |
 
 As you can see, the three methods form a sort of hierarchy with `Object.preventExtensions` being the least restrictive and `Object.freeze` being the most restrictive.
+
+<hr/>
+
+Next chapter: [Chapter 4 - Internal Object Behavior ➡️](./chapter-4.md)
 
 
 [^descriptor-type]: It's a Record Specification Type https://tc39.es/ecma262/#sec-property-descriptor-specification-type

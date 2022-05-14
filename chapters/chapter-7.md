@@ -189,5 +189,9 @@ console.log(date instanceof Object) // true
 >This essentially means that the result of `instanceof` can be customized for individual constructors. However, constructors rarely take advantage of this.
 >
 
+<hr/>
+
+Next chapter: [Chapter 8 - Classes ➡️](./chapter-8.md)
+
 [^function-table]: https://tc39.es/ecma262/#table-additional-essential-internal-methods-of-function-objects
 [^construct-steps]: https://tc39.es/ecma262/#sec-ecmascript-function-objects-construct-argumentslist-newtarget

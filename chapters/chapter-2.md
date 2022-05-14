@@ -207,6 +207,10 @@ obj2.otherObj = obj1
 console.log(JSON.stringify(obj1))
 ```
 
+<hr/>
+
+Next chapter: [Chapter 3 - Property Descriptors and Object Restrictions ➡️](./chapter-3.md)
+
 [^object-creation]: Another way is using the `Object` constructor. This is mentioned in a note in [Chapter 7](./chapter-7.md#putting-this-and-prototype-together-creating-methods)
 [^key-conversion]: https://tc39.es/ecma262/#sec-topropertykey
 [^well-known-symbols]: https://tc39.es/ecma262/#sec-well-known-symbols
