@@ -1,18 +1,12 @@
 # Chapter 0 - Introduction
 
-The main resource used to write this book was the [EcmaScript specification](https://tc39.es/ecma262/) which is the specification that JavaScript adheres to. It describes in detail how the language should behave. As a learning resource, it's fantastic although very dense and long (around 1300 pages). I spent a lot of time studying the specification and decided to write a shorter more intuitive resource. Since I didn't have time to do this for the entire language, I picked the most interesting part to me, objects. 
+The main resource used to write this book was the [ECMAScript specification](https://tc39.es/ecma262/) which is the specification that JavaScript adheres to. It describes in detail how the language should behave. As a learning resource, it's fantastic although very dense and long (around 1300 pages). I spent a lot of time studying the specification and decided to write a shorter more intuitive resource. Since I didn't have time to do this for the entire language, I picked the most interesting part to me, objects. 
 
 ## Prerequisites
 
-I like to think of this book as a resource that can prepare you for reading the EcmaScript specification yourself. Meaning, I try not to use too much abstraction. That being said, I don't think you need to be an advanced JavaScript programmer to understand it. Beginner and intermediate JavaScript programmers should be able to follow along just fine.
+I like to think of this book as a resource that can prepare you for reading the EcmaScript specification yourself. Meaning, I try not to use too much abstraction. That being said, I don't think you need to be an advanced JavaScript programmer to understand it. Beginner/intermediate JavaScript programmers should be able to follow along just fine.
 
-This book won't go deeply into the syntax of objects. If you want to brush up on this, I recommend reading this https://javascript.info/object.
-
-## Footnotes
-
-Footnotes are sprinkled throughout this book. It is not required to read these. They often link to external resources or note things of little significance to most readers.
-
-Many footnotes link to a places in the EcmaScript specification. I encourage you to try exploring these if it interests you.
+This book won't go deeply into the syntax of objects. If you want to brush up on that, I recommend reading https://javascript.info/object.
 
 ## Reading sequence
 
@@ -32,6 +26,12 @@ function doSomething() {
     // empty
 }
 ```
+
+## Footnotes
+
+Footnotes are sprinkled throughout this book. It is not required to read these. They often link to external resources or note things of little significance to most readers.
+
+Many footnotes link to a places in the ECMAScript specification. I encourage you to try exploring these if it interests you.
 
 ## Issues
 

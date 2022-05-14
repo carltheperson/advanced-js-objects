@@ -44,7 +44,7 @@ console.log(obj) // { myKey: "Hello!" }
 
 Here are the six different descriptor attributes with their default value[^descriptor-table]:
 
-| Attribute name | Default value ^
+| Attribute name | Default value 
 | --- | --- |
 | `value` | `undefined` |
 | `writable` | `false` |

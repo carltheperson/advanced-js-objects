@@ -30,7 +30,7 @@ Text values are of the String type.
 const hello = "Hello world!" // Type is String
 ```
 
-In the above example the value is “Hello world!” and the type of the value is String.
+In the above example the value is `“Hello world!”` and the type of the value is String.
 
 You can imagine that the range of possible values for the String type is quite large, which is true. The number of different String combinations is practically infinite.
 
@@ -40,7 +40,7 @@ There exists two types for numeric values in JavaScript. The most common is Numb
 
 ```js
 // Type is Number
-const num1 = -250
+const num1 = -25`
 const num2 = 0
 const num3 = 524.75
 ```
