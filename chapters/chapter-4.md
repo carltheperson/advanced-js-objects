@@ -29,7 +29,7 @@ Below is a table with all essential internal methods[^essential-table]. The argu
 | [[Delete]] | (Key) => Boolean | Delete/remove a property. |
 | [[OwnPropertyKeys]] | () => Key[] | Get all property keys. |
 
-As you can see, some types are different than the ones we defined in chapter one. This is because they are internal and separate from the language types you use in your code. All of the internal types can be converted into language types and vise versa. The new internal types introduced above are:
+As you can see, some types are different than the ones we defined in chapter one. This is because they are internal and separate from the language types you use in your code. All of the internal types can be converted into language types and vice versa. The new internal types introduced above are:
 
 - `Key`. A property key. Is converted to/from a string or symbol.
 - `Any`. Can be any language type. All instances of this type above represent property values.
@@ -47,7 +47,7 @@ The [[Call]] method is executed internally when the function is called in your c
 
 ## Internal methods of constructors
 
-Constructors are functions which have have a [[Construct]] internal method in addition to their [[Call]] method. They will be covered much more in [Chapter 7](./chapter-7.md).
+Constructors are functions which have a [[Construct]] internal method in addition to their [[Call]] method. They will be covered much more in [Chapter 7](./chapter-7.md).
 
 | Internal method | Arguments- and return type |
 | --- | --- |
@@ -57,9 +57,9 @@ Constructors are functions which have have a [[Construct]] internal method in ad
 
 As mentioned before, you can’t call internal methods because, well, they’re internal. But you can sort of call them with the help of `Reflect`.
 
-`Reflect` provides minimal wrappers over the internal methods. Meaning, we can call the internal methods *through* `Reflect`. This effectively bridges the gab between the internal methods and our code.
+`Reflect` provides minimal wrappers over the internal methods. Meaning, we can call the internal methods *through* `Reflect`. This effectively bridges the gap between the internal methods and our code.
 
-You will notice that `Reflect` has a lot of similar methods as `Object`. `Object` is more utility focused and doesn’t cover all the internal methods. It also, unlike `Reflect`, has methods that don’t correspond directly to internal methods.
+You will notice that `Reflect` has a lot of similar methods as `Object`. `Object` is more utility-focused and doesn’t cover all the internal methods. It also, unlike `Reflect`, has methods that don’t correspond directly to internal methods.
 
 Below, you will see a table with all the internal methods and their corresponding `Reflect` method. The `Object` method is also listed if it exists.
 
@@ -105,37 +105,38 @@ Two of these will be explained further below: array and proxy objects.
 
 ### Arrays (exotic objects)
 
-Arrays are exotic objects that have a different [[DefineOwnProperty]] method than ordinary objects[^array]. The [[DefineOwnProperty]] method is used internally to define properties. For ordinary objects this method is quite straight forward, a property is defined with a key, value, and descriptor. The [[DefineOwnProperty]] of arrays works the same but has special behavior for properties in two special cases:
+Arrays are exotic objects that have a different [[DefineOwnProperty]] method than ordinary objects[^array]. The [[DefineOwnProperty]] method is used internally to define properties. For ordinary objects, this method is quite straightforward, a property is defined with a key, value, and descriptor. The [[DefineOwnProperty]] of arrays works the same but has special behavior for properties in two special cases:
 
 - Case 1: The key is called `“length”`
 - Case 2: The key is a valid array index. To be this, the key needs to fulfill two criteria:
     1. It should be a *numeric* string. Meaning, a string that is a valid number e.g. `“5”`
-    2. The numeric value is a positive number e.g. `“10”` not `“-10”`.
+    2. The numeric value is a positive number, e.g. `“10”` not `“-10”`.
  
->💡 The property values of an array object are also refereed to as array *elements.*
+>💡 The property values of an array object are also referred to as array *elements.*
 >
 
->💡 It might sound strange to learn that valid array indexes has to be a strings. This is because we normally use numbers to access/define array elements. It might be helpful to think of two different kinds of array indexes:
+>💡 It might sound strange to learn that valid array indexes has to be strings. This is because we normally use numbers to access/define array elements. It might be helpful to think of two different kinds of array indexes:
 > - Internal array indexes which has to be strings.
 > - External array indexes which can be both strings and numbers.
-> The reason external array indexes can be both strings and numbers, is that numbers are converted to strings if used as property keys. This was covered in [Chapter 2](./chapter-2.md#property-key-types).
+> The reason external array indexes can be both strings and numbers is that numbers are converted to strings if used as property keys. This was covered in [Chapter 2](./chapter-2.md#property-key-types).
 > 
 
 #### Special case 1: The key is called “length”
 
 It is possible to redefine the `length` property on your arrays. In this case, the internal method will “cut off” extra elements that would make the array exceed the new length.
 
-```jsx
+```js
 const arr = ["a", "b", "c"]
 arr.length = 2
 
 console.log(arr) // ["a", "b"]
 ```
 
-In the above example, the last element `“c”` was removed from the Array. 
-If you set `length` to be greater than the current length then no elements will be removed. This does create a bit of a strange case, however. In that case, the number of array elements won’t match the length of the array. Turns out this is perfectly valid.
+In the above example, the last element `“c”` was removed from the array. 
 
-```jsx
+If you set `length` to be greater than the current length, then no elements will be removed. This does create a bit of a strange case, however. In that case, the number of array elements won’t match the length of the array. Turns out this is perfectly valid.
+
+```js
 const arr = ["a", "b", "c"]
 arr.length = 5
 
@@ -157,9 +158,9 @@ arr["2"] = "c"
 console.log(arr.length) // 3
 ```
 
-In the above example, we start be defining an array with a length of 2. We then define a property using the key `“2”`. The length changes to the numeric value of `“2”` plus one (`2 + 1 = 3`).
+In the above example, we start by defining an array with a length of 2. We then define a property using the key `“2”`. The length changes to the numeric value of `“2”` plus one (`2 + 1 = 3`).
 
-The length will also be re-defined if the numeric value is greater than the length. We can see this below where we define a property using the key `“5”` on an array with a length of 2. The length changes to `5 + 1 = 6`.
+The length will also be re-defined if the numeric value is greater than the length. We can see this below, where we define a property using the key `“5”` on an array with a length of 2. The length changes to `5 + 1 = 6`.
 
 ```js
 const arr = ["a", "b"]
@@ -169,7 +170,7 @@ arr["5"] = "c"
 console.log(arr.length) // 6
 ```
 
-The length is now 6 but the amount of elements is still 3. Because of this, your browser will likely show some “empty items” inside the array. Remember, these aren’t real elements.
+The length is now 6, but the amount of elements is still 3. Because of this, your browser will likely show some “empty items” inside the array. Remember, these aren’t real elements.
 
 ```js
 console.log(arr) // [ "a", "b", <3 empty items>, "c" ]
@@ -179,7 +180,7 @@ console.log(arr) // [ "a", "b", <3 empty items>, "c" ]
 
 If a property is assigned to the array object that doesn’t fit the two special cases, it will be assigned normally. This won’t affect the length of the array.
 
-```jsx
+```js
 const arr = ["a", "b", "c"]
 arr["Hello"] = "World"
 
@@ -189,15 +190,15 @@ console.log(arr.length) // 3
 
 ### Proxies (exotic objects)
 
-Proxies are the only exotic objects that have a different implementation of every single essential internal method[^proxy]. When one of its internal methods are called, the proxy can call a function of *your* choosing. You can essentially set up listeners that run custom code when internal methods are called. This is really powerful and allows you to create truly flexible objects.
+Proxies are the only exotic objects that have a different implementation of every single essential internal method[^proxy]. When one of its internal methods is called, the proxy can call a function of *your* choosing. You can essentially set up listeners that run custom code when internal methods are called. This is really powerful and allows you to create truly flexible objects.
 
 #### Proxy handlers
 
-When you initialize a proxy you give it a *proxy handler* which is an object. You attach methods to this object which will be called by the proxy. A method on a proxy handler is called a *trap*. A trap is specific to a certain internal method.
+When you initialize a proxy, you give it a *proxy handler*, which is an object. You attach methods to this object which will be called by the proxy. A method on a proxy handler is called a *trap*. A trap is specific to a certain internal method.
 
 Below you will see a proxy handler that implements every possible trap[^proxy-handler]. This is not required. You only need to define the traps you need. The traps have a comment indicating which type should be returned from them.
 
-```jsx
+```js
 const proxyHandler = {
   getPrototypeOf: (target) => {}, // Object | Null
   setPrototypeOf: (target, proto) => {}, // Boolean
@@ -283,7 +284,7 @@ proxyObj.dfg = 2 // You want to set 2 on dfg
 
 It’s important to return `true` from this trap. Otherwise, the assignment will be considered failed and a `TypeError` will be thrown in strict mode.
 
-> ⚠️ Your [[Set]] trap won’t trigger if a property is defined with a descriptor. Although, it is possible to trap [[DefineOwnProperty]] which will trigger when properties are defined with descriptors.
+> ⚠️ Your [[Set]] trap won’t trigger if a property is defined with a descriptor. Although, it is possible to trap [[DefineOwnProperty]], which will trigger when properties are defined with descriptors.
 >
 
 #### receiver in [[Get]] and [[Set]] traps
@@ -304,7 +305,7 @@ console.log(Reflect.ownKeys(proxyObj)) // ["a", "b", "c"]
 console.log(Object.keys(proxyObj)) // []
 ```
 
-As you can see, `Reflect.ownKeys` returns the keys from our trap but `Object.keys` does not. The reason for this, is that `Object.keys` only returns keys of enumerable properties. The keys we return from our proxy trap don’t actually exist, meaning they don’t have a descriptor with an `enumerable` attribute.
+As you can see, `Reflect.ownKeys` returns the keys from our trap, but `Object.keys` does not. The reason for this is that `Object.keys` only returns keys of enumerable properties. The keys we return from our proxy trap don’t actually exist, meaning they don’t have a descriptor with an `enumerable` attribute.
 
 #### Trapping [[GetOwnPropertyDescriptor]]
 
@@ -331,12 +332,12 @@ This will also allow our “fake” property keys to be used with the spread ope
 
 #### Trap ideas
 
-The traps showed so far have been pretty simple. Here are some more interesting ideas for traps.
+The traps shown so far have been pretty simple. Here are some more interesting ideas for traps.
 
 - Validate property data before assigning it.
 - Restrict access to certain properties.
 - Limit property values to be of a certain type.
-- Automatically update DOM when object changes. 
+- Automatically update DOM when an object changes. 
 
 <hr/>
 

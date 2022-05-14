@@ -1,6 +1,6 @@
 # Chapter 1 - Getting Our Data Structures Straight
 
-To understand objects it’s essential to understand where objects fit into the JavaScript data structure scene. This chapter firsts cover the different JavaScript types then cover which types contain so called *primitives*. I will also attempt to clear some confusion regarding the `typeof` operator.
+To understand objects, it’s essential to understand where objects fit into the JavaScript data structure scene. This chapter first covers the different JavaScript types and then covers which ones contain so-called *primitives*. I will also attempt to clear some confusion regarding the `typeof` operator.
 
 ## What is a type?
 
@@ -15,11 +15,11 @@ Every value you define will have a type. Here are all JavaScript types[^spec-typ
 - Null
 - Object
 
-Usually, you don't have to think too much about types in JavaScript. That's because types are inferred automatically from values. But being able to categorize your values into types is still quite useful. As you'll see, different types have very different capabilities.
+Usually, you don't have to think too much about types in JavaScript. That's because types are inferred automatically from values. But being able to categorize your values into types is still quite helpful. As you'll see, different types have very different capabilities.
 
 The main thing to know about types is that they group values. Some types contain more values than others, and some contain only one value. But it's important to always think of them as sets of values. All the types listed above will be further explained below.
 
-> 💡 This book will describe the name of a types using capitalization e.g. "Object" or "Number" [^capitalization]. However, when the type isn't explicitly addressed, groups of values will be described in lower-case e.g. "object(s)" or "number(s)".
+> 💡 This book will describe the name of a type using capitalization e.g. "Object" or "Number" [^capitalization]. However, when types aren't explicitly addressed, they will be described in lower-case, e.g. "object(s)" or "number(s)".
 >
 
 ### String
@@ -30,13 +30,13 @@ Text values are of the String type.
 const hello = "Hello world!" // Type is String
 ```
 
-In the above example the value is `“Hello world!”` and the type of the value is String.
+In the above example, the value is `“Hello world!”` and the type of the value is String.
 
 You can imagine that the range of possible values for the String type is quite large, which is true. The number of different String combinations is practically infinite.
 
 ### Number
 
-There exists two types for numeric values in JavaScript. The most common is Number. It consists of 18,437,736,874,454,810,624 numeric values, half of which are positive, and the other half are negative[^number-amount].
+There exist two types for numeric values in JavaScript. The most common is Number. It consists of 18,437,736,874,454,810,624 numeric values, half of which are positive, and the other half are negative[^number-amount].
 
 ```js
 // Type is Number
@@ -89,7 +89,7 @@ const bool2 = false
 ### Symbol
 
 Symbols allow you to create your own custom unique values. You create a new symbol with the built-in `Symbol` function[^symbol-function].
-^
+
 ```js
 const mySymbol = Symbol() // Type is Symbol
 ```
@@ -100,7 +100,7 @@ You can optionally give your symbols a description. This is mostly to act as doc
 const mySymbol = Symbol("This is my Symbol")
 ```
 
-Interestingly, symbols can be used as keys on object properties. More on that later.
+Interestingly, symbols can be used as keys for object properties. More on that later.
 
 ### Undefined and Null
 
@@ -123,7 +123,7 @@ const obj = {
 
 ## What is a primitive?
 
-Certain types contain values which are *primitive*. Primitive values belong to the following types:
+Certain types contain values that are *primitive*. Primitive values belong to the following types:
 
 - String
 - Number
@@ -143,10 +143,10 @@ myString.repeat(5)
 console.log(myString) // Hello World
 ```
 
-The value of `myString` isn’t repeated 5 times like you might expect. The `repeat` method actually returns a new string because it can’t modify the primitive `“Hello World”` value.
+The value of `myString` isn’t repeated 5 times as you might expect. The `repeat` method actually returns a new string because it can’t modify the primitive `“Hello World”` value.
 
 Another quirk of primitives is that they can’t have properties/methods. This might be surprising to learn, after all, the above example uses a *method* called `repeat`. It’s true that `repeat` is a method, but it doesn’t exist on the primitive itself. The method exists on a *wrapper object*[^wrapping].
-All primitives except Undefined and Null have wrapper objects. When you attempt to access a property on a primitive, a wrapper object is instantiated which you access instead. The wrapper object for String types is called `String`. `String` is a globally available constructor, which means we can easily simulate the work JavaScript does under the hood. 
+All primitives except Undefined and Null have wrapper objects. When you attempt to access a property on a primitive, a wrapper object is instantiated, which you access instead. The wrapper object for String types is called `String`. `String` is a globally available constructor, which means we can easily simulate the work JavaScript does under the hood. 
 
 ```js
 const a1 = "a".repeat(5)
@@ -155,7 +155,7 @@ console.log(a1) // aaaaa
 console.log(a2) // aaaaa
 ```
 
-In the above example, we let JavaScript create the wrapper object for `a1` but we do it ourselves for `a2`. The result is the same.
+In the above example, we let JavaScript create the wrapper object for `a1`, but we do it ourselves for `a2`. The result is the same.
 
 Interestingly, the specific instance of the wrapper object only exists when you try to access a property and is discarded right after. That’s why this code doesn’t work:
 
@@ -165,7 +165,7 @@ myString.someField = "Can you see me?"
 console.log(myString.someField) // undefined
 ```
 
-We set `someField` on a `String` wrapper object that then is immediately discarded meaning we receive another instance of `String` on the last line.
+We set `someField` on a `String` wrapper object that then is immediately discarded, meaning we receive another instance of `String` on the last line.
 
 ## typeof
 
@@ -188,7 +188,7 @@ First, notice how all the types are represented in lower-case. Second, notice th
 console.log(typeof null) // object
 ```
 
-The type of `null` is wrongly computed to be Object. This is a bug that was introduced in the first implementation of JavaScript[^typeof]. It has never been possible to correct the bug since a lot of programs depend on the false result. If you need a more accurate way to check for objects you have to do the following.
+The type of `null` is wrongly computed to be Object. This is a bug that was introduced in the first implementation of JavaScript[^typeof]. It has never been possible to correct the bug since a lot of programs depend on the false result. If you need a more accurate way to check for objects, you have to do the following.
 
 ```js
 if (typeof value === "object" && value !== null) {
@@ -196,7 +196,7 @@ if (typeof value === "object" && value !== null) {
 }
 ```
 
-The last notable thing about the `typeof` operator is how it differentiates between objects and functions. Functions in JavaScript don’t have their own type and instead belong to the Object type. This is because functions are just callable Objects. So it’s reasonable to expect the `typeof` operator to return `“object”` for a function but it instead returns `“function”`.
+The last notable thing about the `typeof` operator is how it differentiates between objects and functions. Functions in JavaScript don’t have their own type and instead belong to the Object type. This is because functions are just callable Objects. So it’s reasonable to expect the `typeof` operator to return `“object”` for a function, but it instead returns `“function”`.
 
 ```js
 const func = () => {}

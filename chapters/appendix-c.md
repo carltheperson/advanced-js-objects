@@ -1,8 +1,6 @@
-# Appendix C
+# Appendix C - receiver argument for traps
 
-### receiver argument for traps
-
-The `receiver` argument becomes important if you want a trap that returns the same value it would without the trap. E.g a [[Get]] trap only used for logging purposes. You would expect to be able to just return `target[key]` but that doesn’t always work. It might not work if your proxy becomes part of a prototype chain. 
+The `receiver` argument becomes important if you want a trap that returns the same value it would without the trap, e.g, a [[Get]] trap only used for logging purposes. You would expect to be able to just return `target[key]`, but that doesn’t always work. It might not work if your proxy becomes part of a prototype chain. 
 
 Consider the following example. Here we have a person object that combines `this.name` with `this.lastName` in the getter method `fullName`. The Object `paul` inherits this method. This works like a charm.
 
@@ -78,5 +76,5 @@ Reflect.setPrototypeOf(paul, proxyPerson)
 console.log(paul.fullName) // Paul Bertsen
 ```
 
->💡 The above example explained the `receiver` argument in the context of a [[Get]] trap. However, it is also relevant for a [[Set]] trap. That too, can get passed as a  `receiver` argument, and its corresponding `Reflect.set` function also takes in a `receiver` argument.
+>💡 The above example explained the `receiver` argument in the context of a [[Get]] trap. However, it is also relevant for a [[Set]] trap. That, too, can get passed as a  `receiver` argument, and its corresponding `Reflect.set` function also takes in a `receiver` argument.
 >

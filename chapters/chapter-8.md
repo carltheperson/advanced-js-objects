@@ -26,7 +26,7 @@ Under the hood, classes mainly use concepts covered in the previous chapters. In
 
 # Classes are constructors
 
-The first thing you need to know about classes is that they are constructors. To clarify, the class *itself* is a constructor. Meaning a class is a *function* with both a [[Call]] and [[Construct]] internal method. However, if you call a class using [[Call]] it will throw a `TypeError`. This means there is practically only one way to call classes, with [[Construct]].
+The first thing you need to know about classes is that they are constructors. To clarify, the class *itself* is a constructor. Meaning a class is a *function* with both a [[Call]] and [[Construct]] internal method. However, if you call a class using [[Call]], it will throw a `TypeError`. This means there is practically only one way to call classes, with [[Construct]].
 
 ```js
 new MyClass() // Internally calling [[Construct]], OK
@@ -58,7 +58,7 @@ For the class, isn’t it a bit strange that we executed the `console.log` code 
 
 ![A class and function side-by-side](../images/class-func.png)
 
->⚠️ A class definition doesn’t actually produce a traditional function definition like shown above. Both definitions create their own internal function Object. However, it’s safe to assume, for now, that they produce an identical function object. Meaning, you can use the above figure as a helpful mental model.
+>⚠️ A class definition doesn’t actually produce a traditional function definition like shown above. Both definitions create their own internal function object. However, it’s safe to assume, for now, that they produce an identical function object. Meaning, you can use the above figure as a helpful mental model.
 >
 
 >💡 It’s not required to define a `constructor` method. If you don’t, it’s the equivalent of defining an empty one (`constructor(){}`).
@@ -90,7 +90,7 @@ const paul = new Person("Paul")
 console.log(paul) // { name: "Paul" }
 ```
 
-Above, we have a class called `Person` that has a `constructor` method which assigns a value to `this.name`. When we invoke [[Construct]] on the class (using `new`) we get an object with our instance property, `name`.
+Above, we have a class called `Person` that has a `constructor` method that assigns a value to `this.name`. When we invoke [[Construct]] on the class (using `new`), we get an object with our instance property, `name`.
 
 We can mimic this with a traditional function:
 
@@ -121,7 +121,7 @@ console.log(garfield) // { livesLeft: 9 }
 >💡 This covers non-static methods.
 >
 
-Defining a method on a class will actually define it on the classes `.prototype` property. Remember, a class is a constructor, and the `.prototype` property is special to constructors. The prototype of instances created with a constructor, will come from the *constructors* `.prototype` property. To illustrate this, let’s create two instances from a class with a `sayName` method. 
+Defining a method on a class will actually define it on the class's `.prototype` property. Remember, a class is a constructor, and the `.prototype` property is special to constructors. The prototype of instances created with a constructor will come from the *constructors* `.prototype` property. To illustrate this, let’s create two instances from a class with a `sayName` method. 
 
 ```js
 class Person {
@@ -146,7 +146,7 @@ At first glance, it seems like `paul` and `owen` each have their own `sayName` m
 console.log(paul.sayName === owen.sayName) // true
 ```
 
-This is because they both inherited the method from their prototype. Since `paul` and `owen` where created as instances of a constructor, their prototype comes from the constructor’s `.prototype` property. In this case the constructor is `Person`.
+This is because they both inherited the method from their prototype. Since `paul` and `owen` were created as instances of a constructor, their prototype comes from the constructor’s `.prototype` property. In this case, the constructor is `Person`.
 
 ```jsx
 const paulProto = Reflect.getPrototypeOf(paul)
@@ -161,7 +161,7 @@ Below is an illustration of how `paul` and `owen` access the `sayName` method.
 
 # Static members
 
-Static members, that is, static field declarations and methods, exists as own properties of the class *itself*. They do not appear in the prototype chain of instances, and they can only be accessed directly on the class.
+Static members, that is, static field declarations and methods, exist as own properties of the class *itself*. They do not appear in the prototype chain of instances, and they can only be accessed directly on the class.
 
 ```js
 class Person {
@@ -175,7 +175,7 @@ Person.incrementPeople()
 console.log(Person.totalPeople) // 1
 ```
 
-Above we have a class with two static members, `totalPeople` and `incrementPeople`. We access these members directly on `Person`.
+Above, we have a class with two static members, `totalPeople` and `incrementPeople`. We access these members directly on `Person`.
 
 # Derived classes
 
@@ -267,7 +267,7 @@ new Derived()
 
 #### Arguments of a super call
 
-The arguments to a `super` call becomes the arguments used when [[Construct]] is called on the parent class.
+The arguments to a `super` call become the arguments used when [[Construct]] is called on the parent class.
 
 ```js
 class Calculator {
@@ -286,12 +286,12 @@ class Derived extends Calculator {
 new Derived()
 ```
 
->💡 If you don’t define a `constructor` method inside a derived class, it’s the equivalent of defining one that calls `super` with all its own arguments (`constructor(...args) { super(...args) }`)
+>💡 If you don’t define a `constructor` method inside a derived class, it’s the equivalent of defining one that calls `super` with all its own arguments (`constructor(...args) { super(...args) }`).
 >
 
 #### Accessing a property on super
 
-Accessing a property on `super` will go up the prototype chain starting with the classes *parent*. This makes it useful if a method with the same name is defined in both a derived and parent class. We can see this below where we access `method` on both `this` and `super` with different results.
+Accessing a property on `super` will go up the prototype chain, starting with the classes *parent*. This makes it useful if a method with the same name is defined in both a derived and parent class. We can see this below where we access `method` on both `this` and `super` with different results.
 
 ```js
 class Parent {
@@ -318,7 +318,7 @@ new Derived()
 
 Private members are exclusive to classes. They allow you to define properties and methods which are inaccessible outside their class. A private class member is prefixed with a hashtag (`#`).
 
->💡 Private members won’t become part of the classes prototype chain inheritance. Meaning, they can’t be inherited by derived classes.
+>💡 Private members won’t become part of the class's prototype chain inheritance. Meaning, they can’t be inherited by derived classes.
 >
 
 
@@ -338,7 +338,7 @@ person.#age // syntaxError
 
 As we can see, `#age` is not accessible outside the class.
 
->💡 Private properties have to be declared as fields. Meaning, they have to be declared in the body of the class (outside any method). This is unlike public properties which can be declared directly on `this` without first being declared as a field.
+>💡 Private properties have to be declared as fields. Meaning, they have to be declared in the body of the class (outside any method). This is unlike public properties, which can be declared directly on `this` without first being declared as a field.
 >
 
 ### Private method
@@ -379,4 +379,4 @@ Person.#incrementPeople() // SyntaxError
 Person.#totalPeople // SyntaxError
 ```
 
-[^func-class-diff]: .*Almost* is an important keyword here. This great StackOverflow answer provides an in-depth explanation regarding wether classes are just syntactic sugar https://stackoverflow.com/a/54861781. Answer, no.
+[^func-class-diff]: .*Almost* is an important keyword here. This great StackOverflow answer provides an in-depth explanation regarding whether classes are just syntactic sugar https://stackoverflow.com/a/54861781. The answer, no.

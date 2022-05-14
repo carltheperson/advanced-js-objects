@@ -8,9 +8,9 @@ const obj = {
 }
 ```
 
-In the above example we have an object called `obj`. It has a property with the key `“abc”` and the value `100`.
+In the above example, we have an object called `obj`. It has a property with the key `“abc”` and the value `100`.
 
-The specific syntax we used to create the above object makes it an *object literal.* Object literals are defined using curly braces (`{}`) that enclose properties. The properties are defined using the colon (`:`) which separate the key and value. Object literals are not the only way to create objects. More on that later [^object-creation].
+The specific syntax we used to create the above object makes it an *object literal.* Object literals are defined using curly braces (`{}`) that enclose properties. The properties are defined using the colon (`:`), which separates the key and value. Object literals are not the only way to create objects. More on that later [^object-creation].
 
 ### Property key types
 
@@ -28,7 +28,7 @@ const obj = { [true]: "", [undefined]: "", [null]: "", [{}]: "" }
 console.log(Object.keys(obj)) // [ "true", "undefined", "null", "[object Object]" ]
 ```
 
-The same possible conversion that happens when you define a property, can also happen when you retrieve a property value.
+The same possible conversion that happens when you define a property can also happen when you retrieve a property value.
 
 ```js
 const obj = { [true]: "a", 100: "b" }
@@ -126,11 +126,11 @@ console.log(obj1) // { changed: true }
 console.log(obj2) // { changed: true }
 ```
 
-Above, we create an object with a reference assigned to the variable `obj1`. We then copy the reference into the variable `obj2`. When then change a property on the object that `obj2` references. This is of course the same object that `obj1` references. They effectively share an object.
+Above, we create an object with a reference assigned to the variable `obj1`. We then copy the reference into the variable `obj2`. When then change a property on the object that `obj2` references. This is, of course, the same object that `obj1` references. They effectively share an object.
 
 ![Memory addresses 2](../images/memory-2.png)
 
-Note, there is a difference between changing an object and assigning a brand new object to a variable. Below, we re-assign the variable `obj2` to a new object literal. The result is that the variables reference two separate objects.
+Note, that there is a difference between changing an object and assigning a brand new object to a variable. Below, we re-assign the variable `obj2` to a new object literal. The result is that the variables reference two separate objects.
 
 ```js
 let obj1 = { changed: false }
@@ -157,7 +157,7 @@ const myValue = 10
 func(myValue)
 ```
 
-Here we have a function called `func` and a variable called `myValue` which holds a primitive value (`10`). We call the function and pass in `myValue` as a parameter. Interestingly, the value of `myValue` is not passed directly. Instead, a copy is made which is assigned to `param`. This means we can safely assume that functions won’t modify our primitive variables.
+Here we have a function called `func` and a variable called `myValue`, which holds a primitive value (`10`). We call the function and pass in `myValue` as a parameter. Interestingly, the value of `myValue` is not passed directly. Instead, a copy is made, which is assigned to `param`. This means we can safely assume that functions won’t modify our primitive variables.
 
 ```js
 function iCantChangeYourPrimitive(val) {
@@ -194,7 +194,7 @@ obj1.changeMe = "I changed!"
 console.log(obj2.obj1Here) // { changeMe: "I changed!" }
 ```
 
-This can, in some rare cases, lead to a circular object structure where two objects both reference *each other*. This becomes a problem if you want to convert the objects to a format like JSON which doesn’t support references.
+This can, in some rare cases, lead to a circular object structure where two objects both reference *each other*. This becomes a problem if you want to convert the objects to a format like JSON, which doesn’t support references.
 
 ```js
 const obj1 = {}

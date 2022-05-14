@@ -1,6 +1,6 @@
 # Chapter 0 - Introduction
 
-The main resource used to write this book was the [ECMAScript specification](https://tc39.es/ecma262/) which is the specification that JavaScript adheres to. It describes in detail how the language should behave. As a learning resource, it's fantastic although very dense and long (around 1300 pages). I spent a lot of time studying the specification and decided to write a shorter more intuitive resource. Since I didn't have time to do this for the entire language, I picked the most interesting part to me, objects. 
+The main resource used to write this book was the [ECMAScript specification](https://tc39.es/ecma262/) which is the specification that JavaScript adheres to. It describes in detail how the language should behave. As a learning resource, it's fantastic, although very dense and long (around 1300 pages). I spent a lot of time studying the specification and decided to write a shorter, more intuitive resource. Since I didn't have time to do this for the entire language, I picked the most interesting part to me, objects. 
 
 ## Prerequisites
 
@@ -31,7 +31,7 @@ function doSomething() {
 
 Footnotes are sprinkled throughout this book. It is not required to read these. They often link to external resources or note things of little significance to most readers.
 
-Many footnotes link to a places in the ECMAScript specification. I encourage you to try exploring these if it interests you.
+Many footnotes link to places in the ECMAScript specification. I encourage you to try exploring these if it interests you.
 
 ## Issues
 

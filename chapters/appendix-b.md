@@ -1,6 +1,6 @@
-# Appendix B: Strict Mode
+# Appendix B - Strict Mode
 
-Strict mode in is something you can enable in your JavaScript code. Running your code in strict mode will result in a slightly different interpretation of the language. Strict mode is described as a more "modern version" of JavaScript that is less prone to errors.
+Strict mode is something you can enable in your JavaScript code. Running your code in strict mode will result in a slightly different interpretation of the language. Strict mode is described as a more "modern version" of JavaScript that is less prone to errors.
 
 Not running your code in strict mode is sometimes referred to as "Sloppy mode".
 
@@ -10,7 +10,7 @@ Not running your code in strict mode is sometimes referred to as "Sloppy mode".
 
 One way is to put a `“use strict”` statement at the top of a file.
 
-```jsx
+```js
 "use strict"
 
 console.log("This is running in strict mode!")
@@ -18,7 +18,7 @@ console.log("This is running in strict mode!")
 
 It can also be enabled for an individual function.
 
-```jsx
+```js
 function func() {
 	"use strict"
 	console.log("This is running in strict mode!")
@@ -27,7 +27,7 @@ function func() {
 
 Strict mode is also auto-enabled for all [ES modules](https://hacks.mozilla.org/2018/03/es-modules-a-cartoon-deep-dive/). You are using ES modules if you use the import/export keywords.
 
-```jsx
+```js
 import {} from "./example"
 
 console.log("This is running in strict mode!")

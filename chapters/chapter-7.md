@@ -10,11 +10,11 @@ console.log(typeof obj) // object
 
 # What is a constructor?
 
-All functions in JavaScript have an internal method called [[Call]]. This method is used to execute the code inside the function. Some JavaScript functions have another internal method called [[Construct]]. It too, executes the code in the function, although slightly differently. Functions that have a [[Construct]] method are called constructors[^function-table].
+All functions in JavaScript have an internal method called [[Call]]. This method is used to execute the code inside the function. Some JavaScript functions have another internal method called [[Construct]]. It, too, executes the code in the function, although slightly differently. Functions that have a [[Construct]] method are called constructors[^function-table].
 
 ### new
 
-But how do you call a function using [[Construct]] instead of [[Call]]? You use the `new` operator. We can see this with the `Date` constructor. Below, we call it in two ways. The first is with the `new` operator and the second is without. Both ways work (but produces different results).
+But how do you call a function using [[Construct]] instead of [[Call]]? You use the `new` operator. We can see this with the `Date` constructor. Below, we call it in two ways. The first is with the `new` operator, and the second is without. Both ways work (but produces different results).
 
 ```js
 const obj1 = new Date() // Internally calling [[Construct]]
@@ -23,7 +23,7 @@ const obj2 = Date() // Internally calling [[Call]]
 
 ### Reflect.construct
 
-Another way to call a constructor using [[Construct]] is with `Reflect.construct`. The first argument is the constructor and the second is an array of arguments.
+Another way to call a constructor using [[Construct]] is with `Reflect.construct`. The first argument is the constructor, and the second is an array of arguments.
 
 ```js
 const obj = Reflect.construct(Date, [])
@@ -32,9 +32,9 @@ console.log(typeof obj) // object
 
 # Which functions have a [[Construct]] method?
 
-Some functions have an internal [[Construct] method and some don’t. You will now see some examples of constructors and non-constructors.
+Some functions have an internal [[Construct] method, and some don’t. You will now see some examples of constructors and non-constructors.
 
->⚠️ If you attempt to call [[Construct]] on a non-constructor function it will throw a `TypeError`.
+>⚠️ If you attempt to call [[Construct]] on a non-constructor function, it will throw a `TypeError`.
 >
 
 ### Classes
@@ -55,7 +55,7 @@ function Func() {}
 new Func() // OK
 ```
 
-An exception to this are async functions. They are not constructors.
+An exception to this is async functions. They are not constructors.
 
 ```js
 async function Func() {}
@@ -80,13 +80,13 @@ What exactly does [[Construct]] do when called on a function? Here is a brief ov
 3. Execute the code with `this` being a reference to the object
 4. Return the object
 
-Step 2 and 3 will be covered further below.
+Steps 2 and 3 will be covered further below.
 
 ### The .prototype property (step 2)
 
 All constructors will have a property called `.prototype`. Below, we define a constructor called `Car` and verify that it has a `.prototype` property. As we can see, the type is an object.
 
-```jsx
+```js
 function Car() {
 console.log(typeof Car.prototype) // object
 ```
@@ -128,7 +128,7 @@ function Car(speed) {
 console.log(new Car(5)) // { speed: 5 }
 ```
 
-As we can see, the return value we get from invoking [[Construct]] (using `new`) is an object with a `.speed` property. Meaning, the “instance” we receive from a constructor is actually an instance of its `this`.
+As we can see, the return value we get from invoking [[Construct]] (using `new`) is an object with a `.speed` property. Meaning that the “instance” we receive from a constructor is actually an instance of its `this`.
 
 ### Putting this and .prototype together (creating methods)
 
@@ -151,13 +151,13 @@ const car2 = new Car(5)
 car2.drive() // Wrooooom!
 ```
 
-Above, two instances being created, `car1` and `car2`. As we can see, they are both able to access the `drive` method defined on `Car.prototype`.
+Above, two instances are being created, `car1` and `car2`. As we can see, they are both able to access the `drive` method defined on `Car.prototype`.
 
 ![Car constructor and its instances](../images/car-constructor.png)
 
 This is a common pattern when giving methods to JavaScript instances. The two instances don’t have a `drive` method each. Instead, they *share* the `drive` method by both having `Car.prototype` as their prototype.
 
->💡 You might be wondering why the result of calling `drive` on the instances is different. After all, they access the exact same method. The difference comes from the `this` inside the `drive` method. `drive` is a traditional function so its `this` is the object its called *on*. That explains the difference between calling `car1.drive()` and `car2.drive()`.
+>💡 You might be wondering why the result of calling `drive` on the instances is different. After all, they access the exact same method. The difference comes from the `this` inside the `drive` method. `drive` is a traditional function, so its `this` is the object it's called *on*. That explains the difference between calling `car1.drive()` and `car2.drive()`.
 > 
 > This was covered in [Chapter 6](./chapter-6.md#traditional-function-on-an-object).
 >
