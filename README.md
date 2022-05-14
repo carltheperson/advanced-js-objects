@@ -1,6 +1,9 @@
 <h1 align="center">Advanced JS Objects</h1>
 <p align="center">An e-book entirely about JavaScript objects</p>
 
+<div align="center">
+		<img src="images/book-render.svg" width="400" height="60" alt="Book image">
+</div>
 
 
 ## Other resources
