@@ -10,11 +10,11 @@ console.log(typeof obj) // object
 
 # What is a constructor?
 
-All functions in JavaScript have an internal method called [[Call]]. This method is used to execute the code inside the function. Some JavaScript functions have another internal method called [[Construct]]. It too, executes the code in the function, although slightly differently. Functions that have a [[Construct]] method are called constructors.
+All functions in JavaScript have an internal method called [[Call]]. This method is used to execute the code inside the function. Some JavaScript functions have another internal method called [[Construct]]. It too, executes the code in the function, although slightly differently. Functions that have a [[Construct]] method are called constructors[^function-table].
 
 ### new
 
-But how do you call a function using [[Construct]] instead of [[Call]]? You use the `new` operator. We can see this with the `Date` constructor. Below, we call it in two ways. The first is with the `new` operator and the second is without. Both ways work.
+But how do you call a function using [[Construct]] instead of [[Call]]? You use the `new` operator. We can see this with the `Date` constructor. Below, we call it in two ways. The first is with the `new` operator and the second is without. Both ways work (but produces different results).
 
 ```js
 const obj1 = new Date() // Internally calling [[Construct]]
@@ -73,7 +73,7 @@ new Func() // TypeError: Not a constructor
 
 # [[Construct]]
 
-What exactly does [[Construct]] do when called on a function? Here is a brief overview:
+What exactly does [[Construct]] do when called on a function? Here is a brief overview[^construct-steps]:
 
 1. Create an empty object
 2. Set its prototype to the value of the constructor’s `.prototype` property
@@ -82,7 +82,7 @@ What exactly does [[Construct]] do when called on a function? Here is a brief ov
 
 Step 2 and 3 will be covered further below.
 
-### The prototype property
+### The .prototype property (step 2)
 
 All constructors will have a property called `.prototype`. Below, we define a constructor called `Car` and verify that it has a `.prototype` property. As we can see, the type is an object.
 
@@ -108,7 +108,7 @@ const instanceProto = Reflect.getPrototypeOf(instance)
 console.log(instanceProto === Car.prototype) // true
 ```
 
-### The this inside a constructor
+### The this inside a constructor (step 3)
 
 Consider this function:
 
@@ -130,7 +130,7 @@ console.log(new Car(5)) // { speed: 5 }
 
 As we can see, the return value we get from invoking [[Construct]] (using `new`) is an object with a `.speed` property. Meaning, the “instance” we receive from a constructor is actually an instance of its `this`.
 
-### Putting this and prototype together (creating methods)
+### Putting this and .prototype together (creating methods)
 
 Turns out, the `.prototype` property of a constructor is the perfect place to define methods for its instances. Consider the `Car` constructor from before. Let’s give it a method called `drive`.
 
@@ -158,6 +158,8 @@ Above, two instances being created, `car1` and `car2`. As we can see, they are b
 This is a common pattern when giving methods to JavaScript instances. The two instances don’t have a `drive` method each. Instead, they *share* the `drive` method by both having `Car.prototype` as their prototype.
 
 >💡 You might be wondering why the result of calling `drive` on the instances is different. After all, they access the exact same method. The difference comes from the `this` inside the `drive` method. `drive` is a traditional function so its `this` is the object its called *on*. That explains the difference between calling `car1.drive()` and `car2.drive()`.
+> 
+> This was covered in [Chapter 6](./chapter-6.md#traditional-function-on-an-object).
 >
 
 >💡 It should start to make sense why the standard prototypes we covered in [chapter 5](./chapter-5.md) are called `Object.prototype` and `Function.prototype`. Like our `Car` function, `Object` and `Function` are constructors. They are standard constructors that provide alternative ways to create objects and functions.
@@ -186,3 +188,6 @@ console.log(date instanceof Object) // true
 >💡 In reality, `instanceof` will first check for a method on the constructor using the well-known symbol key `Symbol.hasInstance`. If such a method exists, `instanceof` will call it and return its result. If it doesn’t exist, `instanceof` will work as described above.
 >This essentially means that the result of `instanceof` can be customized for individual constructors. However, constructors rarely take advantage of this.
 >
+
+[^function-table]: https://tc39.es/ecma262/#table-additional-essential-internal-methods-of-function-objects
+[^construct-steps]: https://tc39.es/ecma262/#sec-ecmascript-function-objects-construct-argumentslist-newtarget
