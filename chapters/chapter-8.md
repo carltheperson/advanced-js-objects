@@ -22,7 +22,7 @@ Person.askName() // What is your name?
 paul.sayName() // My name is Paul
 ```
 
-Under the hood, classes mainly use concepts covered in the previous chapters. In fact, almost all the functionality classes provide can be implemented without them. This was done for many years before classes were introduced in 2015. Nevertheless, classes make development a lot easier. 
+Under the hood, classes mainly use concepts covered in the previous chapters. In fact, almost all the functionality classes provide can be implemented without them[^func-class-diff]. This was done for many years before classes were introduced in 2015. Nevertheless, classes make development a lot easier. 
 
 # Classes are constructors
 
@@ -56,9 +56,9 @@ new MyFunc() // Hello!
 
 For the class, isn’t it a bit strange that we executed the `console.log` code by calling `new MyClass()` and didn’t have to call `new MyClass.constructor()`? After all, the `console.log` code exists inside a method inside the class. But this works because the code of the `constructor` method becomes the code of the class function itself.
 
-![Untitled](../images/Untitled7.png)
+![A class and function side-by-side](../images/class-func.png)
 
->⚠️ A class definition doesn’t actually produce a traditional function definition like shown above. Both definitions create their own internal function Object. However, it’s safe to assume, for now, that they produce an identical function Object. Meaning, you can use the above figure as a helpful mental model.
+>⚠️ A class definition doesn’t actually produce a traditional function definition like shown above. Both definitions create their own internal function Object. However, it’s safe to assume, for now, that they produce an identical function object. Meaning, you can use the above figure as a helpful mental model.
 >
 
 >💡 It’s not required to define a `constructor` method. If you don’t, it’s the equivalent of defining an empty one (`constructor(){}`).
@@ -90,7 +90,7 @@ const paul = new Person("Paul")
 console.log(paul) // { name: "Paul" }
 ```
 
-Above, we have a class called `Person` that has a `constructor` method which assigns a value to `this.name`.̣ When we invoke [[Construct]] on the class (using `new`) we get an object with our instance property, `name`.
+Above, we have a class called `Person` that has a `constructor` method which assigns a value to `this.name`. When we invoke [[Construct]] on the class (using `new`) we get an object with our instance property, `name`.
 
 We can mimic this with a traditional function:
 
@@ -157,7 +157,7 @@ console.log(owenProto === Person.prototype) // true
 
 Below is an illustration of how `paul` and `owen` access the `sayName` method.
 
-![Untitled](../images/person-class.png)
+![Paul and Owen accessing sayName through Person.prototype](../images/person-class.png)
 
 # Static members
 
@@ -190,7 +190,7 @@ class Cat extends Animal {}
 const cat = new Cat()
 ```
 
-![Untitled](../images/derived-class.png)
+![Cat deriving from Animal](../images/derived-class.png)
 
 As we can see, the prototype of `Cat.prototype` is `Animal.prototype`. This means that properties defined on `Animal.prototype` are available to our instance `cat` through prototype chain inheritance. We can see this by defining a `sayHi` method on `Animal`.
 
@@ -291,7 +291,7 @@ new Derived()
 
 #### Accessing a property on super
 
-Accessing a property on `super` will go up the prototype chain starting with the classes *parent*. This makes it useful if a method with the same name is defined in both a derived- and parent class. We can see this below where we access `method` on both `this` and `super` with different results.
+Accessing a property on `super` will go up the prototype chain starting with the classes *parent*. This makes it useful if a method with the same name is defined in both a derived and parent class. We can see this below where we access `method` on both `this` and `super` with different results.
 
 ```js
 class Parent {
@@ -378,3 +378,5 @@ class Person {
 Person.#incrementPeople() // SyntaxError
 Person.#totalPeople // SyntaxError
 ```
+
+[^func-class-diff]: .*Almost* is an important keyword here. This great StackOverflow answer provides an in-depth explanation regarding wether classes are just syntactic sugar https://stackoverflow.com/a/54861781. Answer, no.
