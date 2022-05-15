@@ -1,6 +1,6 @@
-<! -- Manually kept in sync with main README -->
-
 ## Chapters
+
+<!-- Manually kept in sync with main README -->
 
 - **[Chapter 0](./chapters/chapter-0.md) - Introduction**
 - **[Chapter 1](./chapters/chapter-1.md) - Getting Our Data Structures Straight**
