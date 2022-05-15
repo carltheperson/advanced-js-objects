@@ -1,6 +1,6 @@
 # Chapter 0 - Introduction
 
-The main resource used to write this book was the [ECMAScript specification](https://tc39.es/ecma262/) which is the specification that JavaScript adheres to. It describes in detail how the language should behave. As a learning resource, it's fantastic, although very dense and long (around 1300 pages). I spent a lot of time studying the specification and decided to write a shorter, more intuitive resource. Since I didn't have time to do this for the entire language, I picked the most interesting part to me, objects. 
+The main resource used to write this book was the [ECMAScript specification](https://tc39.es/ecma262/), which is the specification that JavaScript adheres to. It describes in detail how the language should behave. As a learning resource, it's fantastic, although very dense and long (around 1300 pages). I spent a lot of time studying the specification and decided to write a shorter, more intuitive resource. Since I didn't have time to do this for the entire language, I picked the most interesting part to me, objects. 
 
 ## Prerequisites
 
