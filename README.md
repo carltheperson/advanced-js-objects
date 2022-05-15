@@ -1,14 +1,31 @@
-<h1 align="center">Advanced JS Objects</h1>
+<h1 align="center">Advanced JavaScript Objects</h1>
 <p align="center">An e-book entirely about JavaScript objects</p>
 
 <div align="center">
-		<img src="images/cover-big.gif" width="390px" height="443px" alt="Book image">
+		<img src="images/cover-big.gif" width="390px" height="443px" alt="Cover">
 </div>
+
+## Chapters
+
+Total length: 70 A4 pages.
+
+- **[Chapter 0](./chapters/chapter-0.md) - Introduction**
+- **[Chapter 1](./chapters/chapter-1.md) - Getting Our Data Structures Straight**
+- **[Chapter 2](./chapters/chapter-2.md) - Object Basics**
+- **[Chapter 3](./chapters/chapter-3.md) - Property Descriptors and Object Restrictions**
+- **[Chapter 4](./chapters/chapter-4.md) - Internal Object Behavior**
+- **[Chapter 5](./chapters/chapter-5.md) - Prototypes**
+- **[Chapter 6](./chapters/chapter-6.md) - this**
+- **[Chapter 7](./chapters/chapter-7.md) - Constructors**
+- **[Chapter 8](./chapters/chapter-8.md) - Classes**
+- **[Appendix A](./chapters/appendix-a.md) - Well-known Symbols**
+- **[Appendix B](./chapters/appendix-b.md) - Strict Mode**
+- **[Appendix C](./chapters/appendix-c.md) - receiver argument for traps**
 
 
 ## Other resources
 
-If you're looking for other resources about JavaScript, here's what I recommend:
+If you're looking for other resources on JavaScript, here's what I recommend:
 
 - [javascript.info](https://javascript.info/) - A broad resource for beginners.
 - [You Don't know JS](https://github.com/getify/You-Dont-Know-JS) - A book series covering subjects in depth for beginners.
