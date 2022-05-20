@@ -27,6 +27,14 @@ function doSomething() {
 }
 ```
 
+Things of note will be presented like this:
+
+> 💡 This is an idea block. It will contain extra useful information that isn't necessarily part of the main text.
+> 
+
+> ⚠️ This is a warning block. It will contain information that prevents you from making mistakes.
+> 
+
 ## Footnotes
 
 Footnotes are sprinkled throughout this book. It is not required to read these. They often link to external resources or note things of little significance to most readers.
