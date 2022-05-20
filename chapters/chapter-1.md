@@ -145,6 +145,27 @@ console.log(myString) // Hello World
 
 The value of `myString` isn’t repeated 5 times as you might expect. The `repeat` method actually returns a new string because it can’t modify the primitive `“Hello World”` value.
 
+Here is another example where we try to change the first letter to `A`.
+
+```js
+const myString = "Hello World"
+myString[0] = "A"
+console.log(myString) // Hello World
+```
+
+As you can see, this is not possible.
+
+> 💡 If we declare `myString` with `let`, we can do the following:
+> ```js
+> let myString = "Hello World 1"
+> myString = "Hello World 2"
+> console.log(myString) // Hello World 2
+> ```
+> This looks like we changed the value of `myString`, but we didn't. We assigned it to a *new* value. It's important to note that the *variable* `myString` is not necessarily immutable. It's the *value* of `myString` that is immutable e.g. `"Hello World"`.
+> 
+
+### Primitive wrapper objects
+
 Another quirk of primitives is that they can’t have properties/methods. This might be surprising to learn, after all, the above example uses a *method* called `repeat`. It’s true that `repeat` is a method, but it doesn’t exist on the primitive itself. The method exists on a *wrapper object*[^wrapping].
 All primitives except Undefined and Null have wrapper objects. When you attempt to access a property on a primitive, a wrapper object is instantiated, which you access instead. The wrapper object for String types is called `String`. `String` is a globally available constructor, which means we can easily simulate the work JavaScript does under the hood. 
 
