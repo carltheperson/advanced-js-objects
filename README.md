@@ -22,6 +22,12 @@ Total length: 70 A4 pages.
 - **[Appendix B](./chapters/appendix-b.md) - Strict Mode**
 - **[Appendix C](./chapters/appendix-c.md) - receiver argument for traps**
 
+## YouTube video about arrays
+
+Inspired by this book, I created a YouTube video where I cover the quirks of JavaScript arrays. I also show you *how* I learned it by going over the ECMAScript specification. Watch it by clicking the image below.
+
+[![Watch the video](https://img.youtube.com/vi/pybgPOnKiY8/mqdefault.jpg)](https://youtu.be/pybgPOnKiY8)
+
 
 ## Other resources
 
