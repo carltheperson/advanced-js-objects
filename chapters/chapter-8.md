@@ -4,17 +4,17 @@ Classes give you a way to create instances of objects with common functionality.
 
 ```js
 class Person {
-	constructor(name) {
-		this.name = name
-	}
+  constructor(name) {
+    this.name = name
+  }
 
-	sayName() {
+  sayName() {
     console.log("My name is", this.name)
   }
 
-	static askName() {
-		console.log("What is your name?")
-	}
+  static askName() {
+    console.log("What is your name?")
+  }
 }
 
 const paul = new Person("Paul")
