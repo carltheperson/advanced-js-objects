@@ -21,7 +21,7 @@ Below is a table with all essential internal methods[^essential-table]. The argu
 | [[SetPrototypeOf]] | (Object \| Null) => Boolean | Change the prototype of the object. |
 | [[IsExtensible]] | () => Boolean | Check if the object is extensible. |
 | [[PreventExtensions]] | () => Boolean | Make the object non-extensible. |
-| [[GetOwnProperty]] | (Key) => Descriptor | Undefined | Get the descriptor of a property. |
+| [[GetOwnProperty]] | (Key) => Descriptor \| Undefined | Get the descriptor of a property. |
 | [[DefineOwnProperty]] | (Key, Descriptor) => Boolean | Define a property with a descriptor. |
 | [[HasProperty]] | (Key) => Boolean | Check if a property exists. |
 | [[Get]] | (Key, Receiver) => Any | Get the value of a property. |
@@ -343,8 +343,8 @@ The traps shown so far have been pretty simple. Here are some more interesting i
 
 Next chapter: [Chapter 5 - Prototypes ➡️](./chapter-5.md)
 
-[^essential-table]: This is a modified version of this table https://tc39.es/ecma262/#table-object-property-attributes
-[^exotic-objects]: https://tc39.es/ecma262/#table-object-property-attributes
+[^essential-table]: This is a modified version of this table https://tc39.es/ecma262/#table-essential-internal-methods
+[^exotic-objects]: https://tc39.es/ecma262/#sec-built-in-exotic-object-internal-methods-and-slots
 [^array]: https://tc39.es/ecma262/#sec-array-exotic-objects-defineownproperty-p-desc
 [^proxy]: https://tc39.es/ecma262/#sec-proxy-object-internal-methods-and-internal-slots
 [^proxy-handler]: https://tc39.es/ecma262/#table-proxy-handler-methods
